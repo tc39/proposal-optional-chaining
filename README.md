@@ -30,6 +30,7 @@ TBD
 * [ ] Babel polyfill
 
 ## References
+* [TC39 Slide Deck: Null Propagation Operator](https://docs.google.com/presentation/d/11O_wIBBbZgE1bMVRJI8kGnmC6dWCBOwutbN9SWOK0fU/edit?usp=sharing)
 * [es-optional-chaining](https://github.com/claudepache/es-optional-chaining) (@claudepache)
 *  [ecmascript-optionals-proposal](https://github.com/davidyaha/ecmascript-optionals-proposal) (@davidyaha)
 
