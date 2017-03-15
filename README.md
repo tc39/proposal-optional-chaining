@@ -62,9 +62,18 @@ a?.()        // method is called if exists
 ```
 
 ## TODO
-* [x] Syntax
-* [ ] Specification
-* [ ] Babel polyfill
+Per the [TC39 process document](https://tc39.github.io/process-document/), here is a high level list of work that needs to happen across the various proposal stages.
+
+* [x] Identify champion to advance addition (stage-1)
+* [x] Prose outlining the problem or need and general shape of the solution (stage-1)
+* [x] Illustrative examples of usage (stage-1)
+* [x] High-level API (stage-1)
+* [ ] Initial spec text (stage-2)
+* [ ] Babel plugin (stage-2)
+* [ ] Finalize and reviewer signoff for spec text (stage-3)
+* [ ] Test262 acceptance tests (stage-4)
+* [ ] tc39/ecma262 pull request with integrated spec text (stage-4)
+* [ ] Reviewer signoff (stage-4)
 
 ## References
 * [TC39 Slide Deck: Null Propagation Operator](https://docs.google.com/presentation/d/11O_wIBBbZgE1bMVRJI8kGnmC6dWCBOwutbN9SWOK0fU/edit?usp=sharing)
