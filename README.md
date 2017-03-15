@@ -9,7 +9,25 @@ Current Stage:
 * Gabriel Isenberg (@the_gisenberg)
 
 ## Overview and motivation
-TBD
+When looking for a property value deeply in a tree structure, one has often to check whether intermediate nodes exist:
+
+```javascript
+var street = user.address && user.address.street;
+```
+
+Also, many API return either an object or null/undefined, and one may want to extract a property from the result only when it is not null:
+
+```javascript
+var fooInput = myForm.querySelector('input[name=foo]')
+var fooValue = fooInput ? fooInput.value : undefined
+```
+
+The Optional Chaining Operator allows a developer to handle many of those cases without repeating themselves and/or assigning intermediate results in temporary variables:
+
+```
+var street = user.address?.street
+var fooValue = myForm.querySelector('input[name=foo]')?.value
+```
 
 ## Prior Art
 * C#: [Null-conditional operator](https://msdn.microsoft.com/en-us/library/dn986595.aspx)
@@ -19,13 +37,32 @@ TBD
 * CoffeeScript: [Existential operator](http://coffeescript.org/#existential-operator)
 
 ## Syntax
-TBD
+
+Optional property navigation
+```
+obj?.prop       // optional property access
+obj?.[expr]     // optional property access
+func?.(...args) // optional function or method call
+```
+
+### Notes
+* In order to allow `foo?.3:0` to be parsed as `foo ? .3 : 0` (as required for backward compatibility), a simple lookahead is added at the level of the lexical grammar, so that the sequence of characters `?.` is not interpreted as a single token in that situation (the `?.` token must not be immediately followed by a decimal digit).
 
 ## Semantics
-TBD
+*Base case*. If the expression at the left-hand side of the `?.` operator evaluates to undefined or null, its right-hand side is not evaluated and the whole expression returns undefined.
+
+```
+a?.b         // undefined if a is null/undefined, a.b otherwise
+a?.[++x]     // If a evaluates to null/undefined, the variable x is *not* incremented.
+a?.b.c().d   // undefined if a is null/undefined
+             // throws if b or c is null/undefined
+             // throws if c() returns null/undefined
+
+a?.()        // method is called if exists
+```
 
 ## TODO
-* [ ] Syntax
+* [x] Syntax
 * [ ] Specification
 * [ ] Babel polyfill
 
