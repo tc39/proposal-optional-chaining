@@ -58,7 +58,7 @@ a?.b.c().d   // undefined if a is null/undefined
              // throws if b or c is null/undefined
              // throws if c() returns null/undefined
 
-a?.()        // method is called if exists
+a?.()        // a is invoked if not null/undefined
 ```
 
 ## TODO
