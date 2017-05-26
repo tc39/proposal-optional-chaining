@@ -83,7 +83,7 @@ Per the [TC39 process document](https://tc39.github.io/process-document/), here 
 ## Related issues
 * [Babylon implementation](https://github.com/babel/babylon/issues/328)
 * [estree: Null Propagation Operator](https://github.com/estree/estree/issues/146)
-* [TypeScript: Suggestion: "safe navigation operator"](https://github.com/Microsoft/TypeScript/issues/17)
+* [TypeScript: Suggestion: "safe navigation operator"](https://github.com/Microsoft/TypeScript/issues/16)
 * [Flow: Syntax for handling nullable variables](https://github.com/facebook/flow/issues/607)
 
 ## Prior discussion
