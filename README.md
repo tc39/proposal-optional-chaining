@@ -47,6 +47,7 @@ func?.(...args) // optional function or method call
 
 ### Notes
 * In order to allow `foo?.3:0` to be parsed as `foo ? .3 : 0` (as required for backward compatibility), a simple lookahead is added at the level of the lexical grammar, so that the sequence of characters `?.` is not interpreted as a single token in that situation (the `?.` token must not be immediately followed by a decimal digit).
+* We don’t use the `obj?[expr]` and `func?(...arg)` syntax, because of the difficulty for the parser to distinguish those forms from the conditional operator, e.g.` obj?[expr].filter(fun):0` and `func?(x - 2) + 3 :1`.
 
 ## Semantics
 *Base case*. If the expression at the left-hand side of the `?.` operator evaluates to undefined or null, its right-hand side is not evaluated and the whole expression returns undefined.
