@@ -172,20 +172,22 @@ CallExpression :
 
 ```
 OptionalChainingExpression :
-    MemberExpression OptionalAccessChain
-    CallExpression OptionalAccessChain
-    OptionalChainingExpression OptionalAccessChain
+    MemberExpression OptionalChainingAccessChain
+    CallExpression OptionalChainingAccessChain
+    OptionalChainingExpression OptionalChainingAccessChain
 ``` 
-1. Let baseExpression be the first symbol of the rhs of this production (i.e., MemberExpression, CallExpression, or OptionalChainingExpression).
+1. Let baseExpression be the first child of this production (i.e., this MemberExpression, CallExpression, or OptionalChainingExpression).
 1. Let ref be ? baseExpression.Evaluation().
 1. Let val be ? GetValue(ref).
 1. If Type(val) is Null or Undefined, then
     1. Return undefined.
-1. Return ? OptionalChainExpression.ChainEvaluation(ref, val).
+1. Return ? OptionalChainingAccessChain.ChainEvaluation(ref, val).
 
 
 ChainEvaluation(ref, val)
 -----------------------
+This syntax-directed operation is defined for MemberAccessChain, CallAccessChain and OptionalChainingAccessChain.
+
 ```
 MemberAccessChain :
     [ Expression ]
@@ -206,10 +208,22 @@ OptionalChainingAccessChain :
     OptionalChainingAccessChain OptionalChainingOperator [ Expression ]
 ```    
 
-1. Let firstNode be the first symbol of the rhs of this production (i.e., MemberAccessChain, CallAccessChain, or OptionalChainingAccessChain).
+1. Let firstNode be the first child of this production.
 1. Let ref2 be ? firstNode.ChainEvaluation(ref, val).
 1. Let val2 be ? GetValue(ref2).
 1. Continue as in https://tc39.github.io/ecma262/#sec-property-accessors-runtime-semantics-evaluation, omitting the two first steps,
 and replacing baseReference and baseValue with ref2 and val2 respectively.
 
-etc.
+```
+CallAccessChain :
+    Arguments
+OptionalChainingAccessChain :
+    OptionalChainingAccessChain Arguments
+```    
+1. Let thisCallAccess be the parse of the production.
+1. Let tailCall be IsInTailPosition(thisCallAccess).
+1. Return ? EvaluateCall2(ref, val, Arguments, tailCall).
+
+Here, EvaluateCall2(ref, func, Arguments, tailCall) is [EvaluateCall(ref, Arguments, tailCall)](https://tc39.github.io/ecma262/#sec-evaluatecall) with first step removed.
+
+Other algorithms are left as exercise to the reader.
