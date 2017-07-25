@@ -138,7 +138,7 @@ MemberExpression :
 1. Let constructor be ? GetValue(ref).
 1. Let argList be ? Arguments.ArgumentListEvaluation()
 1. If IsConstructor(val) is false, throw a TypeError exception.
-1. Return ? Construct(constructor, argList).ChainEvaluation()
+1. Return ? Construct(constructor, argList)
 ```
 MemberExpression :
     new MemberBaseExpression MemberAccessChain Arguments
