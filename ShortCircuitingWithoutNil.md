@@ -22,7 +22,7 @@ MemberAccessChain :
     MemberAccessChain . IdentifierName
     MemberAccessChain TemplateLiteral
 ```
-Example of MemberAccessChain:  ``.a[b].c(d)``
+Example of MemberAccessChain:  ``.a[b].c`{d}` ``
 ```       
 MemberBaseExpression :
     PrimaryExpression
