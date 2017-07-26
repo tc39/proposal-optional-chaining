@@ -69,7 +69,7 @@ Per the [TC39 process document](https://tc39.github.io/process-document/), here 
 * [x] Prose outlining the problem or need and general shape of the solution (stage-1)
 * [x] Illustrative examples of usage (stage-1)
 * [x] High-level API (stage-1)
-* [x] [Initial spec text](https://claudepache.github.io/es-optional-chaining/) (stage-2)
+* [x] [Initial spec text](https://claudepache.github.io/es-optional-chaining/) (see also [WIP of a revision](ShortCircuitingWithoutNil.md)) (stage-2)
 * [x] [Babel plugin](https://github.com/babel/babel/pull/5813) (stage-2)
 * [ ] Finalize and reviewer signoff for spec text (stage-3)
 * [ ] Test262 acceptance tests (stage-4)
