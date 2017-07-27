@@ -7,7 +7,7 @@ With this version:
 
 **Note.** A previous version of this document rewrote MemberExpression and CallExpression productions in order to be consistent with how OptionalChainingExpression is specified below. We remove that part, because: 
 
-* the consistency is incomplete, as there are still seperate MemberExpression, CoverCallExpressionAndAsyncArrowHead and CallExpression productions for various technical reasons;
+* the consistency is incomplete, as there are still separate MemberExpression, CoverCallExpressionAndAsyncArrowHead and CallExpression productions for various technical reasons;
 * until otherwise proven, we don’t need to change what works.
 
 
@@ -24,20 +24,20 @@ In the lexical grammar
 ```
 Then, adding to the syntax of [Left-Hand-Side Expressions](https://tc39.github.io/ecma262/#sec-left-hand-side-expressions):
 ```
-OptionalChainingAccessChain :
+OptionalAccessChain :
     OptionalChainingOperator [ Expression ]
     OptionalChainingOperator IdentifierName
     OptionalChainingOperator Arguments
-    OptionalChainingAccessChain [ Expression ]
-    OptionalChainingAccessChain . IdentifierName
-    OptionalChainingAccessChain Arguments
+    OptionalAccessChain [ Expression ]
+    OptionalAccessChain . IdentifierName
+    OptionalAccessChain Arguments
 ```
-Example of OptionalChainingAccessChain:  ``?.a[b].c(d)``
+Example of OptionalAccessChain:  ``?.a[b].c(d)``
 ```
 OptionalChainingExpression :
-    MemberExpression OptionalChainingAccessChain
-    CallExpression OptionalChainingAccessChain
-    OptionalChainingExpression OptionalChainingAccessChain
+    MemberExpression OptionalAccessChain
+    CallExpression OptionalAccessChain
+    OptionalChainingExpression OptionalAccessChain
 ```
 
 Finally, the current `LeftHandSideExpression` is replaced with:
@@ -66,32 +66,32 @@ Evaluation
 
 ```
 OptionalChainingExpression :
-    MemberExpression OptionalChainingAccessChain
-    CallExpression OptionalChainingAccessChain
-    OptionalChainingExpression OptionalChainingAccessChain
+    MemberExpression OptionalAccessChain
+    CallExpression OptionalAccessChain
+    OptionalChainingExpression OptionalAccessChain
 ``` 
 1. Let baseExpression be the first child of this production (i.e., this MemberExpression, CallExpression, or OptionalChainingExpression).
 1. Let ref be ? baseExpression.Evaluation().
 1. Let val be ? GetValue(ref).
 1. If Type(val) is Null or Undefined, then
     1. Return undefined.
-1. Return ? OptionalChainingAccessChain.ChainEvaluation(ref, val).
+1. Return ? OptionalAccessChain.ChainEvaluation(ref, val).
 
 
 ChainEvaluation(ref, val)
 -----------------------
-This operation is defined for OptionalChainingAccessChain productions.
+This operation is defined for OptionalAccessChain productions.
 
 ```
-OptionalChainingAccessChain :
+OptionalAccessChain :
     OptionalChainingOperator [ Expression ]
 ```    
 See https://tc39.github.io/ecma262/#sec-property-accessors-runtime-semantics-evaluation, omitting the two first steps,
 and replacing baseReference and baseValue with ref and val respectively.
 
 ```
-OptionalChainingAccessChain :
-    OptionalChainingAccessChain OptionalChainingOperator [ Expression ]
+OptionalAccessChain :
+    OptionalAccessChain OptionalChainingOperator [ Expression ]
 ```    
 
 1. Let firstNode be the first child of this production.
@@ -101,8 +101,8 @@ OptionalChainingAccessChain :
 and replacing baseReference and baseValue with ref2 and val2 respectively.
 
 ```
-OptionalChainingAccessChain :
-    OptionalChainingAccessChain Arguments
+OptionalAccessChain :
+    OptionalAccessChain Arguments
 ```    
 1. Let thisCallAccess be the parse of the production.
 1. Let tailCall be IsInTailPosition(thisCallAccess).
