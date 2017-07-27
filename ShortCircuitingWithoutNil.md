@@ -5,9 +5,9 @@ With this version:
 * constructions like `new a?.b` or ``a?.b `{c}` `` are not allowed by the grammar;
 * parentheses as in `(a?.b).c` stop short-circuiting.
 
-**Note.** A previous version of this document rewrote MemberExpression and CallExpression productions in order to be consistent with how OptionalChainingExpression is specified below. We remove that part, because: 
+**Note.** A previous version of this document rewrote MemberExpression and CallExpression productions in order to be consistent with how OptionalChainingExpression is specified below. We removed that part, because: 
 
-* the consistency is incomplete, as there are still separate MemberExpression, CoverCallExpressionAndAsyncArrowHead and CallExpression productions for various technical reasons;
+* the consistency is incomplete, as there are still separate MemberExpression, CoverCallExpressionAndAsyncArrowHead and CallExpression productions for various technical reasons, and that leads to break a chain of property accesses, method calls, etc. in several parts;
 * until otherwise proven, we don’t need to change what works.
 
 
