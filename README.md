@@ -148,7 +148,7 @@ All the above cases will be forbidden by the grammar.
 <dl>
 
 
-<dt>obj?.[expr]  and  func?(arg)  looks ugly. Why not use  obj?[expr]  and  func?(arg)  as does &lt;language X>?
+<dt>obj?.[expr]  and  func?.(arg)  look ugly. Why not use  obj?[expr]  and  func?(arg)  as does &lt;language X>?
 
 <dd>
 
@@ -183,7 +183,7 @@ See [Issue #3 (comment)](https://github.com/tc39/proposal-optional-chaining/issu
 
 
 
-<dt>In a?.b.c, if a.b is null, then a.b.c will evaluate to undefined, right?**
+<dt>In a?.b.c, if a.b is null, then a.b.c will evaluate to undefined, right?
 
 <dd>
 
