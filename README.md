@@ -105,7 +105,7 @@ An Optional Chain may be followed by another Optional Chain.
 
 ```js
 a?.b[3].c?.(x).d
-a == null ? undefined : a.b[3].c == null ? undefined : a.b[3].c.(x).d
+a == null ? undefined : a.b[3].c == null ? undefined : a.b[3].c(x).d
   // (as always, except that `a` and `a.b[3].c` are evaluated only once)
 ```
 
