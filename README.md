@@ -71,9 +71,9 @@ a == null ? undefined : a()  // throws a TypeError if `a` is neither null/undefi
                              // invokes the function `a` otherwise
 ```
 
-### Short-circuiting semantics
+### Short-circuiting
 
-If the expression on the LHS of `?.` evaluates to null/undefined, the RHS is not evaluated. This concept is called *short-circuiting*. For example.
+If the expression on the LHS of `?.` evaluates to null/undefined, the RHS is not evaluated. This concept is called *short-circuiting*.
 
 ```js
 a?.[++x]         // `x` is incremented if and only if `a` is not null/undefined
@@ -82,7 +82,7 @@ a == null ? undefined : a[++x]
 
 ### Long short-circuiting
 
-In fact, short-circuiting, when triggered, skips not only to the current property access, method or function call, but also the whole chain of property accesses, method and function calls directly followed by the Optional Chaining operator.
+In fact, short-circuiting, when triggered, skips not only to the current property access, method or function call, but also the whole chain of property accesses, method and function calls following directly the Optional Chaining operator.
 
 ```js
 a?.b.c(++x).d  // if `a` is null/undefined, evaluates to undefined. Variable `x` is not incremented.
@@ -111,7 +111,7 @@ a == null ? undefined : a.b[3].c == null ? undefined : a.b[3].c.(x).d
 
 ### Edge case: grouping
 
-Should the parentheses stop short-circuting:
+Should parentheses limit the scope of short-circuting?
 
 ```js
 (a?.b).c
@@ -140,7 +140,7 @@ The following are not implemented for lack of real-world use cases.
 
 * optional construction: `new a?.()`
 * optional template literal: ``a?.`{b}` ``
-* constructor or template literals in/after an Optional Chain: `new a?.b()`, a?.b`{c}`.
+* constructor or template literals in/after an Optional Chain: `new a?.b()`, ``a?.b`{c}` ``.
 
 All the above cases will be forbidden by the grammar.
 
