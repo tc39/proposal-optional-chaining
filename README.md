@@ -47,7 +47,6 @@ func?.(...args) // optional function or method call
 
 ### Notes
 * In order to allow `foo?.3:0` to be parsed as `foo ? .3 : 0` (as required for backward compatibility), a simple lookahead is added at the level of the lexical grammar, so that the sequence of characters `?.` is not interpreted as a single token in that situation (the `?.` token must not be immediately followed by a decimal digit).
-* We don’t use the `obj?[expr]` and `func?(...arg)` syntax, because of the difficulty for the parser to distinguish those forms from the conditional operator, e.g.` obj?[expr].filter(fun):0` and `func?(x - 2) + 3 :1`.
 
 ## Semantics
 
@@ -94,9 +93,6 @@ Note that the check for nullity is made on `a` only. If, for example, `a` is not
 
 This feature is implemented by, e.g., C# and CoffeeScript [TODO: provide precise references].
 
-[TODO: since long short-circuiting is a criticised by some, write a justification why we *want* that. In the meanwile, ]
-see [Issue #3 (comment)](https://github.com/tc39/proposal-optional-chaining/issues/3#issuecomment-306791812).
-
 ### Stacking 
 
 Let’s call *Optional Chain* an Optional Chaining operator followed by a chain of property accesses, method and function calls.
@@ -127,7 +123,8 @@ Unless there is a strong reason for one way or the other, the answer will mostly
 Because the `delete` operator is very liberal in what it accepts, we have that feature for free:
 ```js
 delete a?.b
-delete (a == null ? undefined : a.b) // does work as expected
+// delete (a == null ? undefined : a.b) // that *would* work if `? :` could return a Reference...
+a == null ? undefined : delete a.b      // this is what we get, really
 ```
 
 ### Optional assignment
@@ -143,6 +140,61 @@ The following are not implemented for lack of real-world use cases.
 * constructor or template literals in/after an Optional Chain: `new a?.b()`, ``a?.b`{c}` ``.
 
 All the above cases will be forbidden by the grammar.
+
+## FAQ
+
+[to be completed]
+
+<dl>
+
+
+<dt>obj?.[expr]  and  func?(arg)  looks ugly. Why not use  obj?[expr]  and  func?(arg)  as does &lt;language X>?
+
+<dd>
+
+We don’t use the `obj?[expr]` and `func?(arg)` syntax, because of the difficulty for the parser to distinguish efficiently those forms from the conditional operator, e.g. `obj?[expr].filter(fun):0` and `func?(x - 2) + 3 :1`.
+
+Alternative syntaxes for those two cases have each their own flaws, and deciding which one looks the least bad is mostly a question of personal taste. Here is how we made our choice:
+
+* pick the best syntax for the `obj?.prop` case, which is expected to occurs most often;  
+* extend the use of the recognisable `?.` sequence of characters to other cases: `obj?.[expr]`, `func?.(arg)`.
+
+As for &lt;language X>, it has different syntactical constraints than JavaScript, because of &lt;some construct not supported by X or working differently in X>.
+
+
+
+<dt>Why does (null)?.b evaluates to undefined rather than null?
+
+<dd>
+
+Neither `a.b` nor `a?.b` is intended to preserve arbitrary information on the base object `a`, but only to give information about the property `"b"` of that object. If a property `"b"` is absent from `a`, this is reflected by `a.b === undefined` and `a?.b === undefined`.
+
+In particular, the value null is considered to have no property; therefore, `(null)?.b` is undefined.
+
+
+
+<dt>Long short-circuiting is bad because of X and Y [TODO: explicit common X’s and Y’s] Why do you expect it?
+
+<dd>
+
+See [Issue #3 (comment)](https://github.com/tc39/proposal-optional-chaining/issues/3#issuecomment-306791812).
+
+[TODO: also refute the possible reason: “it may be confusing/difficult/whatever”]
+
+
+
+<dt>In a?.b.c, if a.b is null, then a.b.c will evaluate to undefined, right?**
+
+<dd>
+
+No. It will throw a TypeError when attempting to fetch the property `"c"` of `a.b`.
+
+The opportunity of short-circuiting happens only at one time, just after having evaluated the LHS of the Optional Chaining operator. If the result of that check is negative, evaluation proceeds normally.
+
+In other words, the `?.` operator has an effect only at the very moment it is evaluated. It does not change the semantics of subsequent property accesses, method or function calls.
+
+
+</dl>
 
 
 ## TODO
@@ -174,3 +226,4 @@ Per the [TC39 process document](https://tc39.github.io/process-document/), here 
 * https://esdiscuss.org/topic/existential-operator-null-propagation-operator
 * https://esdiscuss.org/topic/optional-chaining-aka-existential-operator-null-propagation
 * https://esdiscuss.org/topic/specifying-the-existential-operator-using-abrupt-completion
+
