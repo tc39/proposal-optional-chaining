@@ -38,10 +38,10 @@ var fooValue = myForm.querySelector('input[name=foo]')?.value
 
 ## Syntax
 
-Optional property navigation
+The Optional Chaining operator is spelled `?.`. It may appear in three positions:
 ```
-obj?.prop       // optional property access
-obj?.[expr]     // optional property access
+obj?.prop       // optional static property access
+obj?.[expr]     // optional dynamic property access
 func?.(...args) // optional function or method call
 ```
 
@@ -50,17 +50,100 @@ func?.(...args) // optional function or method call
 * We don’t use the `obj?[expr]` and `func?(...arg)` syntax, because of the difficulty for the parser to distinguish those forms from the conditional operator, e.g.` obj?[expr].filter(fun):0` and `func?(x - 2) + 3 :1`.
 
 ## Semantics
-*Base case*. If the expression at the left-hand side of the `?.` operator evaluates to undefined or null, its right-hand side is not evaluated and the whole expression returns undefined.
 
-```
-a?.b         // undefined if a is null/undefined, a.b otherwise
-a?.[++x]     // If a evaluates to null/undefined, the variable x is *not* incremented.
-a?.b.c().d   // undefined if a is null/undefined
-             // throws if b or c is null/undefined
-             // throws if c() returns null/undefined
+### Base case
+If the operand at the left-hand side of the `?.` operator evaluates to undefined or null, the expression evaluates to undefined. Otherwise the targeted property access, method or function call is triggered normally.
 
-a?.()        // a is invoked if not null/undefined
+Here are basic examples, each one followed by its desugaring. (The desugaring is not exact in the sense that the LHS should be evaluated only once.)
+```js
+a?.b                          // undefined if `a` is null/undefined, `a.b` otherwise.
+a == null ? undefined : a.b   
+
+a?.[x]                        // undefined if `a` is null/undefined, `a.[x]` otherwise.
+a == null ? undefined : a[x]
+
+a?.b()                        // undefined if `a` is null/undefined
+a == null ? undefined : a.b() // throws a TypeError if `a.b` is not a function 
+                              // otherwise, evaluates to `a.b()`
+
+a?.()                        // undefined if `a` is null/undefined
+a == null ? undefined : a()  // throws a TypeError if `a` is neither null/undefined, nor a function
+                             // invokes the function `a` otherwise
 ```
+
+### Short-circuiting semantics
+
+If the expression on the LHS of `?.` evaluates to null/undefined, the RHS is not evaluated. This concept is called *short-circuiting*. For example.
+
+```js
+a?.[++x]         // `x` is incremented if and only if `a` is not null/undefined
+a == null ? undefined : a[++x]
+```
+
+### Long short-circuiting
+
+In fact, short-circuiting, when triggered, skips not only to the current property access, method or function call, but also the whole chain of property accesses, method and function calls directly followed by the Optional Chaining operator.
+
+```js
+a?.b.c(++x).d  // if `a` is null/undefined, evaluates to undefined. Variable `x` is not incremented.
+               // otherwise, evaluates to `a.b.c(++x).d`. 
+a == null ? undefined : a.b.c(++x).d
+```
+
+Note that the check for nullity is made on `a` only. If, for example, `a` is not null, but `a.b` is null, a TypeError will be thrown when attempting to access the property `"c"` of `a.b`.
+
+This feature is implemented by, e.g., C# and CoffeeScript [TODO: provide precise references].
+
+[TODO: since long short-circuiting is a criticised by some, write a justification why we *want* that. In the meanwile, ]
+see [Issue #3 (comment)](https://github.com/tc39/proposal-optional-chaining/issues/3#issuecomment-306791812).
+
+### Stacking 
+
+Let’s call *Optional Chain* an Optional Chaining operator followed by a chain of property accesses, method and function calls.
+
+An Optional Chain may be followed by another Optional Chain.
+
+```js
+a?.b[3].c?.(x).d
+a == null ? undefined : a.b[3].c == null ? undefined : a.b[3].c.(x).d
+  // (as always, except that `a` and `a.b[3].c` are evaluated only once)
+```
+
+### Edge case: grouping
+
+Should the parentheses stop short-circuting:
+
+```js
+(a?.b).c
+(a == null ? undefined : a.b).c  // this?
+a == null ? undefined : (a.b).c  // or that?
+```
+Given that parentheses are useless in that position, it should not have impact in day-to-day use.
+
+Unless there is a strong reason for one way or the other, the answer will mostly depend on how the feature is specified.
+
+### Optional deletion
+
+Because the `delete` operator is very liberal in what it accepts, we have that feature for free:
+```js
+delete a?.b
+delete (a == null ? undefined : a.b) // does work as expected
+```
+
+### Optional assignment
+
+Should optional property assignement as in: `a?.b = c` be implemented? This is supported and used in CoffeeScript.
+
+## Not supported
+
+The following are not implemented for lack of real-world use cases.
+
+* optional construction: `new a?.()`
+* optional template literal: ``a?.`{b}` ``
+* constructor or template literals in/after an Optional Chain: `new a?.b()`, a?.b`{c}`.
+
+All the above cases will be forbidden by the grammar.
+
 
 ## TODO
 Per the [TC39 process document](https://tc39.github.io/process-document/), here is a high level list of work that needs to happen across the various proposal stages.
