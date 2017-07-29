@@ -56,13 +56,13 @@ If the operand at the left-hand side of the `?.` operator evaluates to undefined
 Here are basic examples, each one followed by its desugaring. (The desugaring is not exact in the sense that the LHS should be evaluated only once.)
 ```js
 a?.b                          // undefined if `a` is null/undefined, `a.b` otherwise.
-a == null ? undefined : a.b   
+a == null ? undefined : a.b
 
 a?.[x]                        // undefined if `a` is null/undefined, `a.[x]` otherwise.
 a == null ? undefined : a[x]
 
 a?.b()                        // undefined if `a` is null/undefined
-a == null ? undefined : a.b() // throws a TypeError if `a.b` is not a function 
+a == null ? undefined : a.b() // throws a TypeError if `a.b` is not a function
                               // otherwise, evaluates to `a.b()`
 
 a?.()                        // undefined if `a` is null/undefined
@@ -85,7 +85,7 @@ In fact, short-circuiting, when triggered, skips not only to the current propert
 
 ```js
 a?.b.c(++x).d  // if `a` is null/undefined, evaluates to undefined. Variable `x` is not incremented.
-               // otherwise, evaluates to `a.b.c(++x).d`. 
+               // otherwise, evaluates to `a.b.c(++x).d`.
 a == null ? undefined : a.b.c(++x).d
 ```
 
@@ -93,7 +93,7 @@ Note that the check for nullity is made on `a` only. If, for example, `a` is not
 
 This feature is implemented by, e.g., C# and CoffeeScript [TODO: provide precise references].
 
-### Stacking 
+### Stacking
 
 Let’s call *Optional Chain* an Optional Chaining operator followed by a chain of property accesses, method and function calls.
 
@@ -156,7 +156,7 @@ We don’t use the `obj?[expr]` and `func?(arg)` syntax, because of the difficul
 
 Alternative syntaxes for those two cases have each their own flaws, and deciding which one looks the least bad is mostly a question of personal taste. Here is how we made our choice:
 
-* pick the best syntax for the `obj?.prop` case, which is expected to occurs most often;  
+* pick the best syntax for the `obj?.prop` case, which is expected to occurs most often;
 * extend the use of the recognisable `?.` sequence of characters to other cases: `obj?.[expr]`, `func?.(arg)`.
 
 As for &lt;language X>, it has different syntactical constraints than JavaScript, because of &lt;some construct not supported by X or working differently in X>.
@@ -204,7 +204,7 @@ Per the [TC39 process document](https://tc39.github.io/process-document/), here 
 * [x] Prose outlining the problem or need and general shape of the solution (stage-1)
 * [x] Illustrative examples of usage (stage-1)
 * [x] High-level API (stage-1)
-* [x] [Initial spec text](https://claudepache.github.io/es-optional-chaining/) (see also [WIP of a revision](ShortCircuitingWithoutNil.md)) (stage-2)
+* [x] [Initial spec text](https://ecma.github.io/proposal-optional-chaining/)) (stage-2)
 * [x] [Babel plugin](https://github.com/babel/babel/pull/5813) (stage-2)
 * [ ] Finalize and reviewer signoff for spec text (stage-3)
 * [ ] Test262 acceptance tests (stage-4)
