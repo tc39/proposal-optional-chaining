@@ -143,7 +143,8 @@ All the above cases will be forbidden by the grammar.
 
 ## FAQ
 
-[to be completed]
+[TODO: to be completed. In particular, discuss specific criticisms around long short-circuiting.]
+
 
 <dl>
 
@@ -173,13 +174,11 @@ In particular, the value null is considered to have no property; therefore, `(nu
 
 
 
-<dt>Long short-circuiting is bad because of X and Y [TODO: explicit common X’s and Y’s] Why do you expect it?
+<dt>Why do you want long short-circuiting?</dt>
 
 <dd>
 
 See [Issue #3 (comment)](https://github.com/tc39/proposal-optional-chaining/issues/3#issuecomment-306791812).
-
-[TODO: also refute the possible reason: “it may be confusing/difficult/whatever”]
 
 
 
@@ -196,6 +195,9 @@ In other words, the `?.` operator has an effect only at the very moment it is ev
 
 </dl>
 
+## Specification
+See: https://tc39.github.io/proposal-optional-chaining/
+
 
 ## TODO
 Per the [TC39 process document](https://tc39.github.io/process-document/), here is a high level list of work that needs to happen across the various proposal stages.
@@ -204,7 +206,7 @@ Per the [TC39 process document](https://tc39.github.io/process-document/), here 
 * [x] Prose outlining the problem or need and general shape of the solution (stage-1)
 * [x] Illustrative examples of usage (stage-1)
 * [x] High-level API (stage-1)
-* [x] [Initial spec text](https://ecma.github.io/proposal-optional-chaining/)) (stage-2)
+* [x] [Initial spec text](https://tc39.github.io/proposal-optional-chaining/) (stage-2)
 * [x] [Babel plugin](https://github.com/babel/babel/pull/5813) (stage-2)
 * [ ] Finalize and reviewer signoff for spec text (stage-3)
 * [ ] Test262 acceptance tests (stage-4)
