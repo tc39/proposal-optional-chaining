@@ -138,14 +138,14 @@
         ArgumentList[?Yield, ?Await] `,` `...` AssignmentExpression[+In, ?Yield, ?Await]
 
       <ins class="block">
-      OptionalChainingExpression[Yield, Await] :
+      OptionalExpression[Yield, Await] :
         MemberExpression[?Yield, ?Await] OptionalChain[?Yield, ?Await]
         CallExpression[?Yield, ?Await] OptionalChain[?Yield, ?Await]
-        OptionalChainingExpression[?Yield, ?Await] OptionalChain[?Yield, ?Await]
+        OptionalExpression[?Yield, ?Await] OptionalChain[?Yield, ?Await]
 
       OptionalChain[Yield, Await] :
         OptionalChainingPunctuator `[` Expression[+In, ?Yield, ?Await] `]`
-        OptionalChainingPunctuator `.` IdentifierName
+        OptionalChainingPunctuator IdentifierName
         OptionalChainingPunctuator Arguments[?Yield, ?Await]
         OptionalChain[?Yield, ?Await]  `[` Expression[+In, ?Yield, ?Await] `]`
         OptionalChain[?Yield, ?Await] `.` IdentifierName
@@ -155,7 +155,7 @@
       LeftHandSideExpression[Yield, Await] :
         NewExpression[?Yield, ?Await]
         CallExpression[?Yield, ?Await]
-        <ins>OptionalChainingExpression[?Yield, ?Await]</ins>
+        <ins>OptionalExpression[?Yield, ?Await]</ins>
     </emu-grammar>
     <h2>Supplemental Syntax</h2>
     <p>When processing an instance of the production <emu-grammar>CallExpression : CoverCallExpressionAndAsyncArrowHead</emu-grammar> the interpretation of |CoverCallExpressionAndAsyncArrowHead| is refined using the following grammar:</p>
@@ -239,7 +239,7 @@
 
           LeftHandSideExpression :
             CallExpression
-            <ins>OptionalChainingExpression</ins>
+            <ins>OptionalExpression</ins>
         </emu-grammar>
         <emu-alg>
           1. Return *false*.
@@ -269,7 +269,7 @@
 
           LeftHandSideExpression :
             CallExpression
-            <ins>OptionalChainingExpression</ins>
+            <ins>OptionalExpression</ins>
         </emu-grammar>
         <emu-alg>
           1. Return *false*.
@@ -294,7 +294,7 @@
 
           LeftHandSideExpression :
             CallExpression
-            <ins>OptionalChainingExpression</ins>
+            <ins>OptionalExpression</ins>
         </emu-grammar>
         <emu-alg>
           1. Return *false*.
@@ -337,7 +337,7 @@
 
         <ins class="block">
         LeftHandSideExpression :
-          OptionalChainingExpression
+          OptionalExpression
         </ins>
         </emu-grammar>
         <emu-alg>
@@ -531,18 +531,18 @@
     <ins class="block">
     <emu-clause id="sec-optional-chains">
       <h1>Optional Chains</h1>
-      <emu-note>An optional chain is a chain of property accesses and function calls introduced by a |OptionalChainingPunctuator|.</emu-note>
+      <emu-note>An optional chain is a chain of property accesses and function calls introduced by an |OptionalChainingPunctuator|.</emu-note>
       </emu-note>
       <emu-clause id="sec-optional-chaining-evaluation">
         <h1>Runtime Semantics: Evaluation</h1>
         <emu-grammar>
-          OptionalChainingExpression :
+          OptionalExpression :
             MemberExpression OptionalChain
             CallExpression OptionalChain
-            OptionalChainingExpression OptionalChain
+            OptionalExpression OptionalChain
         </emu-grammar>
         <emu-alg>
-          1. Let _baseExpression_ be the first child of this production (i.e., this |MemberExpression|, |CallExpression|, or |OptionalChainingExpression|).
+          1. Let _baseExpression_ be the first child of this production (i.e., this |MemberExpression|, |CallExpression|, or |OptionalExpression|).
           1. Let _baseReference_ be ? _baseExpression_.Evaluation().
           1. Let _baseValue_ be ? GetValue(_baseReference_).
           1. If _baseValue_ is *undefined* or *null*, then
