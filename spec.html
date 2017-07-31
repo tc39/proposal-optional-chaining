@@ -37,14 +37,16 @@
 
 </emu-clause>
 
-<!-- es6num="11" -->
-<emu-clause id="sec-ecmascript-language-lexical-grammar">
-  <h1>(<a href="https://tc39.github.io/ecma262/#sec-ecmascript-language-lexical-grammar">11</a>) ECMAScript Language: Lexical Grammar</h1>
 
+<!-- es6num="11" -->
+<!--
+<emu-clause id="sec-ecmascript-language-lexical-grammar">
+  <h1>ECMAScript Language: Lexical Grammar (<a href="https://tc39.github.io/ecma262/#sec-ecmascript-language-lexical-grammar">11</a>)</h1>
+-->
 
   <!-- es6num="11.7" -->
   <emu-clause id="sec-punctuators">
-    <h1>(<a href="https://tc39.github.io/ecma262/#sec-punctuators">11.7</a>) Punctuators</h1>
+    <h1>Punctuators (<a href="https://tc39.github.io/ecma262/#sec-punctuators">11.7</a>)</h1>
     <h2>Syntax</h2>
     <emu-grammar>
       <ins class="block">
@@ -79,17 +81,19 @@
         `}`
     </emu-grammar>
   </emu-clause>
-
+<!--
 </emu-clause>
+-->
 
 <!-- es6num="12" -->
+<!--
 <emu-clause id="sec-ecmascript-language-expressions">
-  <h1>(<a href="https://tc39.github.io/ecma262/#sec-ecmascript-language-expressions">12</a>) ECMAScript Language: Expressions</h1>
-
+  <h1>ECMAScript Language: Expressions (<a href="https://tc39.github.io/ecma262/#sec-ecmascript-language-expressions">12</a>)</h1>
+-->
 
   <!-- es6num="12.3" -->
   <emu-clause id="sec-left-hand-side-expressions">
-    <h1>(<a href="https://tc39.github.io/ecma262/#sec-left-hand-side-expressions">12.3</a>) Left-Hand-Side Expressions</h1>
+    <h1>Left-Hand-Side Expressions (<a href="https://tc39.github.io/ecma262/#sec-left-hand-side-expressions">12.3</a>)</h1>
     <h2>Syntax</h2>
     <emu-grammar>
       MemberExpression[Yield, Await] :
@@ -166,7 +170,7 @@
 
     <!-- es6num="12.3.1" -->
     <emu-clause id="sec-static-semantics">
-      <h1>(<a href="https://tc39.github.io/ecma262/#sec-static-semantics">12.3.1</a>) Static Semantics</h1>
+      <h1>Static Semantics (<a href="https://tc39.github.io/ecma262/#sec-static-semantics">12.3.1</a>)</h1>
 
       <emu-clause id="sec-left-hand-side-expressions-static-semantics-coveredcallexpression">
         <h1>Static Semantics: CoveredCallExpression</h1>
@@ -348,7 +352,7 @@
 
     <!-- es6num="12.3.2" -->
     <emu-clause id="sec-property-accessors">
-      <h1>(<a href="https://tc39.github.io/ecma262/#sec-property-accessors">12.3.2</a>) Property Accessors</h1>
+      <h1>Property Accessors (<a href="https://tc39.github.io/ecma262/#sec-property-accessors">12.3.2</a>)</h1>
       <emu-note>
         <p>Properties are accessed by name, using either the dot notation:</p>
         <div class="rhs">
@@ -438,14 +442,14 @@
 
     <!-- es6num="12.3.3" -->
     <emu-clause id="sec-new-operator">
-      <h1>(<a href="https://tc39.github.io/ecma262/#sec-new-operator">12.3.3</a>) The `new` Operator</h1>
+      <h1>The `new` Operator (<a href="https://tc39.github.io/ecma262/#sec-new-operator">12.3.3</a>)</h1>
 
       <p><i>(not modified)</i></p>
     </emu-clause>
 
     <!-- es6num="12.3.4" -->
     <emu-clause id="sec-function-calls">
-      <h1>(<a href="https://tc39.github.io/ecma262/#sec-function-calls">12.3.4</a>) Function Calls</h1>
+      <h1>Function Calls (<a href="https://tc39.github.io/ecma262/#sec-function-calls">12.3.4</a>)</h1>
 
       <!-- es6num="12.3.4.1" -->
       <emu-clause id="sec-function-calls-runtime-semantics-evaluation">
@@ -510,21 +514,21 @@
 
     <!-- es6num="12.3.5" -->
     <emu-clause id="sec-super-keyword">
-      <h1>(<a href="https://tc39.github.io/ecma262/#sec-super-keyword">12.3.5</a>) The `super` Keyword</h1>
+      <h1>The `super` Keyword (<a href="https://tc39.github.io/ecma262/#sec-super-keyword">12.3.5</a>)</h1>
 
       <p><i>(not modified)</i></p>
     </emu-clause>
 
     <!-- es6num="12.3.6" -->
     <emu-clause id="sec-argument-lists">
-      <h1>(<a href="https://tc39.github.io/ecma262/#sec-argument-lists">12.3.6</a>) Argument Lists</h1>
+      <h1>Argument Lists (<a href="https://tc39.github.io/ecma262/#sec-argument-lists">12.3.6</a>)</h1>
 
       <p><i>(not modified)</i></p>
     </emu-clause>
 
     <!-- es6num="12.3.7" -->
     <emu-clause id="sec-tagged-templates">
-      <h1>(<a href="https://tc39.github.io/ecma262/#sec-tagged-templates">12.3.7</a>) Tagged Templates</h1>
+      <h1>Tagged Templates (<a href="https://tc39.github.io/ecma262/#sec-tagged-templates">12.3.7</a>)</h1>
       <p><i>(not modified)</i></p>
    </emu-clause>
 
@@ -556,25 +560,26 @@
         <p>With parameters _baseValue_ and _baseReference_.</p>
         <emu-grammar>OptionalChain : OptionalChainingPunctuator `[` Expression `]`</emu-grammar>
         <emu-alg>
-          1. If the code matched by this |OptionalChain| is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
+          1. If the code matched by this production is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
           1. Return ? EvaluateDynamicPropertyAccess(_baseValue_, |Expression|, _strict_).
         </emu-alg>
         <emu-grammar>OptionalChain : OptionalChainingPunctuator IdentifierName</emu-grammar>
         <emu-alg>
-          1. If the code matched by this |OptionalChain| is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
+          1. If the code matched by this production is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
           1. Return ? EvaluateStaticPropertyAccess(_baseValue_, |IdentifierName|, _strict_).
         </emu-alg>
         <emu-grammar>OptionalChain : OptionalChainingPunctuator Arguments</emu-grammar>
         <emu-alg>
-          1. If the code matched by this |OptionalChain| is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
-          1. Return ? EvaluateCall(_baseValue_, _baseReference_, |Arguments|, _strict_).
+          1. Let _thisChain_ be this production.
+          1. Let _tailCall_ be IsInTailPosition(_thisChain_).
+          1. Return ? EvaluateCall(_baseValue_, _baseReference_, |Arguments|, _tailCall_).
         </emu-alg>
         <emu-grammar>OptionalChain : OptionalChain `[` Expression `]`</emu-grammar>
         <emu-alg>
           1. Let _optionalChain_ be this |OptionalChain|.
           1. Let _newReference_ be ? _optionalChain_.ChainEvaluation(_baseValue_, _baseReference_).
           1. Let _newValue_ be ? GetValue(_newReference_).
-          1. If the code matched by this |OptionalChain| is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
+          1. If the code matched by this production is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
           1. Return ? EvaluateDynamicPropertyAccess(_newValue_, |Expression|, _strict_).
         </emu-alg>
         <emu-grammar>OptionalChain : OptionalChain `.` IdentifierName</emu-grammar>
@@ -582,7 +587,7 @@
           1. Let _optionalChain_ be this |OptionalChain|.
           1. Let _newReference_ be ? _optionalChain_.ChainEvaluation(_baseValue_, _baseReference_).
           1. Let _newValue_ be ? GetValue(_newReference_).
-          1. If the code matched by this |OptionalChain| is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
+          1. If the code matched by this production is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
           1. Return ? EvaluateStaticPropertyAccess(_newValue_, |IdentifierName|, _strict_).
         </emu-alg>
         <emu-grammar>OptionalChain : OptionalChain Arguments</emu-grammar>
@@ -590,8 +595,9 @@
           1. Let _optionalChain_ be this |OptionalChain|.
           1. Let _newReference_ be ? _optionalChain_.ChainEvaluation(_baseValue_, _baseReference_).
           1. Let _newValue_ be ? GetValue(_newReference_).
-          1. If the code matched by this |OptionalChain| is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
-          1. Return ? EvaluateCall(_newValue_, _newReference_, |Arguments|, _strict_).
+          1. Let _thisChain_ be this production.
+          1. Let _tailCall_ be IsInTailPosition(_thisChain_).
+          1. Return ? EvaluateCall(_newValue_, _newReference_, |Arguments|, _tailCall_).
         </emu-alg>
       </emu-clause>
     </emu-clause>
@@ -599,13 +605,64 @@
 
     <!-- es6num="12.3.8" -->
     <emu-clause id="sec-meta-properties">
-      <h1>(<a href="https://tc39.github.io/ecma262/#sec-meta-properties">12.3.8</a>) Meta Properties</h1>
+      <h1>Meta Properties (<a href="https://tc39.github.io/ecma262/#sec-meta-properties">12.3.8</a>)</h1>
 
       <p><i>(not modified)</i></p>
     </emu-clause>
   </emu-clause>
-
+<!--
 </emu-clause>
+-->
 
-
-
+<!-- es6num="14" -->
+<!--
+<emu-clause id="sec-ecmascript-language-functions-and-classes">
+  <h1>ECMAScript Language: Functions and Classes (<a href="https://tc39.github.io/ecma262/#sec-ecmascript-language-functions-and-classes">14</a>)</h1>
+-->
+  <!-- es6num="14.6" -->
+  <emu-clause id="sec-tail-position-calls">
+    <h1>Tail Position Calls (<a href="https://tc39.github.io/ecma262/#sec-tail-position-calls">14.8</a>)</h1>
+    <!-- es6num="14.6.2" -->
+    <emu-clause id="sec-static-semantics-hascallintailposition">
+      <h1>Static Semantics: HasCallInTailPosition (<a href="https://tc39.github.io/ecma262/#sec-static-semantics-hascallintailposition">14.8.2</a>)</h1>
+      <p>With parameter _call_.</p>
+      <!-- es6num="14.6.2.2" -->
+      <emu-clause id="sec-expression-rules">
+        <h1>Expression Rules</h1>
+        <p><i>The following cases are added:</i></p>
+        <ins class="block">
+        <emu-grammar>
+          OptionalExpression :
+            MemberExpression OptionalChain
+            CallExpression OptionalChain
+            OptionalExpression OptionalChain
+        </emu-grammar>
+        <emu-alg>
+          1. Return HasCallInTailPosition of |OptionalChain| with argument _call_.
+        </emu-alg>
+        <emu-grammar>
+          OptionalChain :
+            OptionalChainingPunctuator `[` Expression `]`
+            OptionalChainingPunctuator IdentifierName
+            OptionalChain `[` Expression `]`
+            OptionalChain `.` IdentifierName
+        </emu-grammar>
+        <emu-alg>
+          1. Return *false*.
+        </emu-alg>
+        <emu-grammar>
+          OptionalChain :
+            OptionalChainingPunctuator Arguments
+            OptionalChain Arguments
+        </emu-grammar>
+        <emu-alg>
+          1. If this |OptionalChain| is _call_, return *true*.
+          1. Return *false*.
+        </emu-alg>
+        </ins>
+      </emu-clause>
+    </emu-clause>
+  </emu-clause>
+<!--
+</emu-clause>
+-->
