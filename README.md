@@ -29,6 +29,19 @@ var street = user.address?.street
 var fooValue = myForm.querySelector('input[name=foo]')?.value
 ```
 
+The call variant of Optional Chaining is useful for dealing with interfaces that have optional methods:
+
+```js
+iterator.return?.() // manually close an iterator
+```
+or with methods not universally implemented:
+```js
+if (myForm.checkValidity?.() === false) { // skip the test in older web browsers
+    // form validation fails
+    return;
+}
+```
+
 ## Prior Art
 * C#: [Null-conditional operator](https://msdn.microsoft.com/en-us/library/dn986595.aspx)
 * Swift: [Optionals](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-ID330)
