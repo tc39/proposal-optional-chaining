@@ -43,11 +43,14 @@ if (myForm.checkValidity?.() === false) { // skip the test in older web browsers
 ```
 
 ## Prior Art
-* C#: [Null-conditional operator](https://msdn.microsoft.com/en-us/library/dn986595.aspx)
-* Swift: [Optionals](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/TheBasics.html#//apple_ref/doc/uid/TP40014097-CH5-ID330)
+The following languages implements the operator with the same general semantics as this proposal (i.e., guard against a null base value, and short-circuiting applying to the whole chain):
+* C#: [Null-conditional operator](https://msdn.microsoft.com/en-us/library/dn986595.aspx) — null-conditional member access or index, in read access.
+* Swift: [Optional Chaining](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/OptionalChaining.html#//apple_ref/doc/uid/TP40014097-CH21-ID245) — optional property, method, or subscript call, in read and write access.
+* CoffeeScript: [Existential operator](http://coffeescript.org/#existential-operator) — existential operator variant for property accessor, function call, object construction. Also applies to assignment and deletion.
+
+The following languages have a similar feature. We haven’t checked whether they are significant differences in semantics with this proposal:
 * Groovy: [Safe navigation operator](http://groovy-lang.org/operators.html#_safe_navigation_operator)
 * Ruby: [Safe navigation operator](http://mitrev.net/ruby/2015/11/13/the-operator-in-ruby/)
-* CoffeeScript: [Existential operator](http://coffeescript.org/#existential-operator)
 
 ## Syntax
 
