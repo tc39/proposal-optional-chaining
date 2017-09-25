@@ -209,6 +209,22 @@ The opportunity of short-circuiting happens only at one time, just after having 
 In other words, the `?.` operator has an effect only at the very moment it is evaluated. It does not change the semantics of subsequent property accesses, method or function calls.
 
 
+
+<dt>In a deeply nested chain like `a?.b?.c`, why should I write `?.` at each level? Should I not be able to write the operator only once for the whole chain?</dt>
+
+<dd>
+
+By design, we want the developer to be able to mark each place that they expect to be null/undefined, and only those. Indeed, we believe that an unexpected null/undefined value, being a symptom of a probable bug, should be reported as a TypeError rather than swept under the rug.
+
+
+<dt>... but, in case of deeply nested chain, we want almost always test for null/undefined at each level, no?
+
+<dd>
+
+Deeply nested tree-like structure is not the sole use case of Optional Chaining.
+
+See also [Usage statistics on optional chaining in CoffeeScript](https://github.com/tc39/proposal-optional-chaining/issues/17) and compare “Total soak operations” with “Total soak operations chained on top of another soak”.
+
 </dl>
 
 ## Specification
