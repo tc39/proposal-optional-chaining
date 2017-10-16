@@ -2,7 +2,7 @@
 
 ## Status
 Current Stage:
-* Stage 1
+* Stage 2
 
 ## Authors
 * Claude Pache (@claudepache)
