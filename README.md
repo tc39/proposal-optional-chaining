@@ -155,7 +155,7 @@ The following is not supported, although it has some use cases; see [Issue #18](
 
 * optional property assignement: `a?.b = c`
 
-All the above cases will be forbidden by the grammar; so that support might be added later.
+All the above cases will be forbidden by the grammar or by static semantics; so that support might be added later.
 
 ## FAQ
 
