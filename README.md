@@ -151,7 +151,7 @@ The following are not supported for lack of real-world use cases:
 * optional template literal: ``a?.`{b}` ``
 * constructor or template literals in/after an Optional Chain: `new a?.b()`, ``a?.b`{c}` ``
 
-The following is not supported, although it has some use cases; see [Issue #18](/tc39/proposal-optional-chaining/issues/18) for discussion:
+The following is not supported, although it has some use cases; see [Issue #18](//github.com/tc39/proposal-optional-chaining/issues/18) for discussion:
 
 * optional property assignement: `a?.b = c`
 
