@@ -143,19 +143,19 @@ delete a?.b
 a == null ? undefined : delete a.b      // this is what we get, really
 ```
 
-### Optional assignment
-
-Should optional property assignement as in: `a?.b = c` be implemented? This is supported and used in CoffeeScript.
-
 ## Not supported
 
-The following are not implemented for lack of real-world use cases.
+The following are not supported for lack of real-world use cases:
 
 * optional construction: `new a?.()`
 * optional template literal: ``a?.`{b}` ``
-* constructor or template literals in/after an Optional Chain: `new a?.b()`, ``a?.b`{c}` ``.
+* constructor or template literals in/after an Optional Chain: `new a?.b()`, ``a?.b`{c}` ``
 
-All the above cases will be forbidden by the grammar.
+The following is not supported, although it has some use cases; see [Issue #18](/tc39/proposal-optional-chaining/issues/18) for discussion:
+
+* optional property assignement: `a?.b = c`
+
+All the above cases will be forbidden by the grammar; so that support might be added later.
 
 ## FAQ
 
