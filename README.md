@@ -173,7 +173,7 @@ We don’t use the `obj?[expr]` and `func?(arg)` syntax, because of the difficul
 
 Alternative syntaxes for those two cases have each their own flaws, and deciding which one looks the least bad is mostly a question of personal taste. Here is how we made our choice:
 
-* pick the best syntax for the `obj?.prop` case, which is expected to occurs most often;
+* pick the best syntax for the `obj?.prop` case, which is expected to occur most often;
 * extend the use of the recognisable `?.` sequence of characters to other cases: `obj?.[expr]`, `func?.(arg)`.
 
 As for &lt;language X>, it has different syntactical constraints than JavaScript, because of &lt;some construct not supported by X or working differently in X>.
