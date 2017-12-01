@@ -123,16 +123,16 @@ a == null ? undefined : a.b[3].c == null ? undefined : a.b[3].c(x).d
 
 ### Edge case: grouping
 
-Should parentheses limit the scope of short-circuting?
+Parentheses limit the scope of short-circuting:
 
 ```js
 (a?.b).c
-(a == null ? undefined : a.b).c  // this?
-a == null ? undefined : (a.b).c  // or that?
+(a == null ? undefined : a.b).c
 ```
-Given that parentheses are useless in that position, it should not have impact in day-to-day use.
 
-Unless there is a strong reason for one way or the other, the answer will mostly depend on how the feature is specified.
+That follows from the design choice of specifying the scope of short-circuiting by syntax (like the `&&` operator), rather than propagation of a Completion (like the `break` instruction) or an adhoc Reference (like an [earlier version of this proposal](https://github.com/claudepache/es-optional-chaining)). In general, syntax cannot be arbitrarly split by parentheses: for example, `({x}) = y` is not destructuring assignment, but attempt to assign a value to an object literal.
+
+Note that, whatever the semantics is, there is no practical reason to use parentheses in that position anyway.
 
 ### Optional deletion
 
