@@ -15,5 +15,8 @@
   "homepage": "https://tc39.github.io/proposal-optional-chaining/",
   "dependencies": {
     "ecmarkup": "^3.11.5"
+  },
+  "devDependencies": {
+    "@alrra/travis-scripts": "^3.0.0"
   }
 }
