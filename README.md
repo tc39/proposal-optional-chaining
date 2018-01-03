@@ -74,7 +74,7 @@ Here are basic examples, each one followed by its desugaring. (The desugaring is
 a?.b                          // undefined if `a` is null/undefined, `a.b` otherwise.
 a == null ? undefined : a.b
 
-a?.[x]                        // undefined if `a` is null/undefined, `a.[x]` otherwise.
+a?.[x]                        // undefined if `a` is null/undefined, `a[x]` otherwise.
 a == null ? undefined : a[x]
 
 a?.b()                        // undefined if `a` is null/undefined
