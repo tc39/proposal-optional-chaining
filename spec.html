@@ -22,7 +22,7 @@
   <h1>Scope</h1>
   <p>This is the spec text of the <a href="https://github.com/tc39/proposal-optional-chaining/">Optional Chaining proposal</a> in ECMAScript. </p>
 
-  <p>For the syntax, we use the `?.` token, with a lookahead at the level of the lexical grammar that allows to discriminate between `a?.b` (optional chaining) and `a?.3:0` (conditional operator, whose meaning cannot be changed due to backward compatibility constraints).</p>
+  <p>For the syntax, we use the `??.` token. An earlier version of this proposal used `?.`</p>
 
   <p>An <a href="https://claudepache.github.io/es-optional-chaining/">early version of this proposal</a> used a Nil reference to express short-circuiting. This one is based on syntax only.</p>
 
@@ -50,11 +50,7 @@
     <h2>Syntax</h2>
     <emu-grammar>
       <ins class="block">
-      OptionalChainingPunctuator ::
-        `?.` [lookahead &lt;! DecimalDigit
-      </ins>
-
-      OtherPunctuator :: one of
+      Punctuator ::
         `{` `(` `)` `[` `]`
         `.` `...` `;` `,`
         `&lt;` `&gt;` `&lt;=` `&gt;=`
@@ -68,17 +64,7 @@
         `?` `:`
         `=` `+=` `-=` `*=` `%=` `**=` `&lt;&lt;=` `&gt;&gt;=` `&gt;&gt;&gt;=` `&amp;=` `|=` `^=`
         `=&gt;`
-
-      Punctuator ::
-        <ins>OptionalChainingPunctuator</ins>
-        OtherPunctuator
-
-      DivPunctuator ::
-        `/`
-        `/=`
-
-      RightBracePunctuator ::
-        `}`
+        `??.` `??(` `??[`
     </emu-grammar>
   </emu-clause>
 <!--
@@ -148,9 +134,9 @@
         OptionalExpression[?Yield, ?Await] OptionalChain[?Yield, ?Await]
 
       OptionalChain[Yield, Await] :
-        OptionalChainingPunctuator `[` Expression[+In, ?Yield, ?Await] `]`
-        OptionalChainingPunctuator IdentifierName
-        OptionalChainingPunctuator Arguments[?Yield, ?Await]
+        `??[` Expression[+In, ?Yield, ?Await] `]`
+        `??.` IdentifierName
+        `??(` ArgumentsList[?Yield, ?Await] `,`? `)
         OptionalChain[?Yield, ?Await]  `[` Expression[+In, ?Yield, ?Await] `]`
         OptionalChain[?Yield, ?Await] `.` IdentifierName
         OptionalChain[?Yield, ?Await] Arguments[?Yield, ?Await]
@@ -209,7 +195,7 @@
           1. Return *false*.
         </emu-alg>
         <ins class="block">
-        <emu-grammar>OptionalChain : OptionalChainingPunctuator IdentifierName</emu-grammar>
+        <emu-grammar>OptionalChain : `??.` IdentifierName</emu-grammar>
         <emu-alg>
           1. If _symbol_ is a |ReservedWord|, return *false*.
           1. If _symbol_ is an |Identifier| and StringValue of _symbol_ is the same value as the StringValue of |IdentifierName|, return *true*.
@@ -535,7 +521,7 @@
     <ins class="block">
     <emu-clause id="sec-optional-chains">
       <h1>Optional Chains</h1>
-      <emu-note>An optional chain is a chain of property accesses and function calls introduced by an |OptionalChainingPunctuator|.</emu-note>
+      <emu-note>An optional chain is a chain of property accesses and function calls introduced by `??.`, `??(` or `??[`.</emu-note>
       </emu-note>
       <emu-clause id="sec-optional-chaining-evaluation">
         <h1>Runtime Semantics: Evaluation</h1>
@@ -558,23 +544,27 @@
       <emu-clause id="sec-optional-chaining-chain-evaluation">
         <h1>Runtime Semantics: ChainEvaluation</h1>
         <p>With parameters _baseValue_ and _baseReference_.</p>
-        <emu-grammar>OptionalChain : OptionalChainingPunctuator `[` Expression `]`</emu-grammar>
+        <emu-grammar>OptionalChain : `??[` Expression `]`</emu-grammar>
         <emu-alg>
           1. If the code matched by this production is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
           1. Return ? EvaluateDynamicPropertyAccess(_baseValue_, |Expression|, _strict_).
         </emu-alg>
-        <emu-grammar>OptionalChain : OptionalChainingPunctuator IdentifierName</emu-grammar>
+        <emu-grammar>OptionalChain : `??.` IdentifierName</emu-grammar>
         <emu-alg>
           1. If the code matched by this production is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
           1. Return ? EvaluateStaticPropertyAccess(_baseValue_, |IdentifierName|, _strict_).
         </emu-alg>
-        <emu-grammar>OptionalChain : OptionalChainingPunctuator Arguments</emu-grammar>
+        <emu-grammar>
+            OptionalChain :
+                `??(` ArgumentsList? `)`
+        </emu-grammar>
+        <emu-grammar>OptionalChain : `??(` ArgumentsList `,` `)` </emu-grammar>
         <emu-alg>
           1. Let _thisChain_ be this production.
           1. Let _tailCall_ be IsInTailPosition(_thisChain_).
-          1. Return ? EvaluateCall(_baseValue_, _baseReference_, |Arguments|, _tailCall_).
+          1. Return ? EvaluateCall(_baseValue_, _baseReference_, |ArgumentsList|, _tailCall_).
         </emu-alg>
-        <emu-grammar>OptionalChain : OptionalChain `[` Expression `]`</emu-grammar>
+        <emu-grammar>OptionalChain : `??[` Expression `]`</emu-grammar>
         <emu-alg>
           1. Let _optionalChain_ be this |OptionalChain|.
           1. Let _newReference_ be ? _optionalChain_.ChainEvaluation(_baseValue_, _baseReference_).
@@ -642,8 +632,8 @@
         </emu-alg>
         <emu-grammar>
           OptionalChain :
-            OptionalChainingPunctuator `[` Expression `]`
-            OptionalChainingPunctuator IdentifierName
+            `??[` Expression `]`
+            `??.` IdentifierName
             OptionalChain `[` Expression `]`
             OptionalChain `.` IdentifierName
         </emu-grammar>
@@ -652,7 +642,7 @@
         </emu-alg>
         <emu-grammar>
           OptionalChain :
-            OptionalChainingPunctuator Arguments
+            `??(` ArgumentsList `,`? `)`
             OptionalChain Arguments
         </emu-grammar>
         <emu-alg>
