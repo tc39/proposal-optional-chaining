@@ -9,7 +9,7 @@ Current Stage:
 * Gabriel Isenberg (@the_gisenberg)
 
 ## Overview and motivation
-When looking for a property value deep in a tree-like structure, one often has to check whether intermediate nodes exist:
+When looking for a property value that's deep in a tree-like structure, one often has to check whether intermediate nodes exist:
 
 ```javascript
 var street = user.address && user.address.street;
