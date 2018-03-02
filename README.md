@@ -145,7 +145,7 @@ a == null ? undefined : delete a.b      // this is what we get, really
 
 ## Not supported
 
-The following are not supported due to lack of real-world use cases:
+The following are not supported due to a lack of real-world use cases:
 
 * optional construction: `new a?.()`
 * optional template literal: ``a?.`{b}` ``
