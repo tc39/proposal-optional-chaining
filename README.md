@@ -9,7 +9,7 @@ Current Stage:
 * Gabriel Isenberg (@the_gisenberg)
 
 ## Overview and motivation
-When looking for a property value deeply in a tree structure, one has often to check whether intermediate nodes exist:
+When looking for a property value that's deep in a tree-like structure, one often has to check whether intermediate nodes exist:
 
 ```javascript
 var street = user.address && user.address.street;
@@ -24,7 +24,7 @@ var fooValue = fooInput ? fooInput.value : undefined
 
 The Optional Chaining Operator allows a developer to handle many of those cases without repeating themselves and/or assigning intermediate results in temporary variables:
 
-```
+```javascript
 var street = user.address?.street
 var fooValue = myForm.querySelector('input[name=foo]')?.value
 ```
@@ -43,19 +43,19 @@ if (myForm.checkValidity?.() === false) { // skip the test in older web browsers
 ```
 
 ## Prior Art
-The following languages implements the operator with the same general semantics as this proposal (i.e., guard against a null base value, and short-circuiting applying to the whole chain):
+The following languages implement the operator with the same general semantics as this proposal (i.e., 1) guarding against a null base value, and 2) short-circuiting application to the whole chain):
 * C#: [Null-conditional operator](https://msdn.microsoft.com/en-us/library/dn986595.aspx) — null-conditional member access or index, in read access.
 * Swift: [Optional Chaining](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/OptionalChaining.html#//apple_ref/doc/uid/TP40014097-CH21-ID245) — optional property, method, or subscript call, in read and write access.
 * CoffeeScript: [Existential operator](http://coffeescript.org/#existential-operator) — existential operator variant for property accessor, function call, object construction. Also applies to assignment and deletion.
 
-The following languages have a similar feature. We haven’t checked whether they are significant differences in semantics with this proposal:
+The following languages have a similar feature. We haven’t checked whether they have significant differences in semantics with this proposal:
 * Groovy: [Safe navigation operator](http://groovy-lang.org/operators.html#_safe_navigation_operator)
 * Ruby: [Safe navigation operator](http://mitrev.net/ruby/2015/11/13/the-operator-in-ruby/)
 
 ## Syntax
 
 The Optional Chaining operator is spelled `?.`. It may appear in three positions:
-```
+```javascript
 obj?.prop       // optional static property access
 obj?.[expr]     // optional dynamic property access
 func?.(...args) // optional function or method call
@@ -97,7 +97,7 @@ a == null ? undefined : a[++x]
 
 ### Long short-circuiting
 
-In fact, short-circuiting, when triggered, skips not only to the current property access, method or function call, but also the whole chain of property accesses, method and function calls following directly the Optional Chaining operator.
+In fact, short-circuiting, when triggered, skips not only the current property access, method or function call, but also the whole chain of property accesses, method or function calls directly following the Optional Chaining operator.
 
 ```js
 a?.b.c(++x).d  // if `a` is null/undefined, evaluates to undefined. Variable `x` is not incremented.
@@ -111,7 +111,7 @@ This feature is implemented by, e.g., C# and CoffeeScript [TODO: provide precise
 
 ### Stacking
 
-Let’s call *Optional Chain* an Optional Chaining operator followed by a chain of property accesses, method and function calls.
+Let’s call *Optional Chain* an Optional Chaining operator followed by a chain of property accesses, method or function calls.
 
 An Optional Chain may be followed by another Optional Chain.
 
@@ -130,9 +130,9 @@ Parentheses limit the scope of short-circuting:
 (a == null ? undefined : a.b).c
 ```
 
-That follows from the design choice of specifying the scope of short-circuiting by syntax (like the `&&` operator), rather than propagation of a Completion (like the `break` instruction) or an adhoc Reference (like an [earlier version of this proposal](https://github.com/claudepache/es-optional-chaining)). In general, syntax cannot be arbitrarly split by parentheses: for example, `({x}) = y` is not destructuring assignment, but attempt to assign a value to an object literal.
+That follows from the design choice of specifying the scope of short-circuiting by syntax (like the `&&` operator), rather than propagation of a Completion (like the `break` instruction) or an adhoc Reference (like an [earlier version of this proposal](https://github.com/claudepache/es-optional-chaining)). In general, syntax cannot be arbitrarly split by parentheses: for example, `({x}) = y` is not destructuring assignment, but an attempt to assign a value to an object literal.
 
-Note that, whatever the semantics is, there is no practical reason to use parentheses in that position anyway.
+Note that, whatever the semantics are, there is no practical reason to use parentheses in that position anyway.
 
 ### Optional deletion
 
@@ -145,7 +145,7 @@ a == null ? undefined : delete a.b      // this is what we get, really
 
 ## Not supported
 
-The following are not supported for lack of real-world use cases:
+The following are not supported due to a lack of real-world use cases:
 
 * optional construction: `new a?.()`
 * optional template literal: ``a?.`{b}` ``
@@ -153,9 +153,9 @@ The following are not supported for lack of real-world use cases:
 
 The following is not supported, although it has some use cases; see [Issue #18](//github.com/tc39/proposal-optional-chaining/issues/18) for discussion:
 
-* optional property assignement: `a?.b = c`
+* optional property assignment: `a?.b = c`
 
-All the above cases will be forbidden by the grammar or by static semantics; so that support might be added later.
+All the above cases will be forbidden by the grammar or by static semantics so that support might be added later.
 
 ## FAQ
 
@@ -169,24 +169,24 @@ All the above cases will be forbidden by the grammar or by static semantics; so 
 
 <dd>
 
-We don’t use the `obj?[expr]` and `func?(arg)` syntax, because of the difficulty for the parser to distinguish efficiently those forms from the conditional operator, e.g. `obj?[expr].filter(fun):0` and `func?(x - 2) + 3 :1`.
+We don’t use the `obj?[expr]` and `func?(arg)` syntax, because of the difficulty for the parser to efficiently distinguish those forms from the conditional operator, e.g., `obj?[expr].filter(fun):0` and `func?(x - 2) + 3 :1`.
 
-Alternative syntaxes for those two cases have each their own flaws, and deciding which one looks the least bad is mostly a question of personal taste. Here is how we made our choice:
+Alternative syntaxes for those two cases each have their own flaws; and deciding which one looks the least bad is mostly a question of personal taste. Here is how we made our choice:
 
 * pick the best syntax for the `obj?.prop` case, which is expected to occur most often;
 * extend the use of the recognisable `?.` sequence of characters to other cases: `obj?.[expr]`, `func?.(arg)`.
 
-As for &lt;language X>, it has different syntactical constraints than JavaScript, because of &lt;some construct not supported by X or working differently in X>.
+As for &lt;language X>, it has different syntactical constraints than JavaScript because of &lt;some construct not supported by X or working differently in X>.
 
 
 
-<dt>Why does (null)?.b evaluates to undefined rather than null?
+<dt>Why does (null)?.b evaluate to undefined rather than null?
 
 <dd>
 
 Neither `a.b` nor `a?.b` is intended to preserve arbitrary information on the base object `a`, but only to give information about the property `"b"` of that object. If a property `"b"` is absent from `a`, this is reflected by `a.b === undefined` and `a?.b === undefined`.
 
-In particular, the value null is considered to have no property; therefore, `(null)?.b` is undefined.
+In particular, the value `null` is considered to have no properties; therefore, `(null)?.b` is undefined.
 
 
 
@@ -217,11 +217,11 @@ In other words, the `?.` operator has an effect only at the very moment it is ev
 By design, we want the developer to be able to mark each place that they expect to be null/undefined, and only those. Indeed, we believe that an unexpected null/undefined value, being a symptom of a probable bug, should be reported as a TypeError rather than swept under the rug.
 
 
-<dt>... but, in case of deeply nested chain, we want almost always test for null/undefined at each level, no?
+<dt>... but, in the case of a deeply nested chain, we almost always want to test for null/undefined at each level, no?
 
 <dd>
 
-Deeply nested tree-like structure is not the sole use case of Optional Chaining.
+Deeply nested tree-like structures is not the sole use case of Optional Chaining.
 
 See also [Usage statistics on optional chaining in CoffeeScript](https://github.com/tc39/proposal-optional-chaining/issues/17) and compare “Total soak operations” with “Total soak operations chained on top of another soak”.
 
