@@ -145,7 +145,7 @@ a == null ? undefined : delete a.b      // this is what we get, really
 
 ## Not supported
 
-The following are not supported due to a lack of real-world use cases:
+Although they could be included for completeness, the following are not supported due to lack of real-world use cases or other compelling reasons; see [Issue # 22](https://github.com/tc39/proposal-optional-chaining/issues/22) and [Issue #54](https://github.com/tc39/proposal-optional-chaining/issues/54) for discussion:
 
 * optional construction: `new a?.()`
 * optional template literal: ``a?.`{b}` ``
