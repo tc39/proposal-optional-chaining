@@ -31,20 +31,17 @@
   <p>List of significant editorial modifications:</p>
   <ul>
     <li><a href="#sec-property-accessors">Property Accessors</a>: Factoring part of the property access operations in the new EvaluateDynamicPropertyAccess and EvaluateStaticPropertyAccess abstract operations.</li>
-    <li>Factoring out first step of EvaluateCall as in PR <a href="https://github.com/tc39/ecma262/pull/963">tc39/ecma262#963</a>.</li>
     <li>In new content, adoption of calling convention for directed operations of PR <a href="https://github.com/tc39/ecma262/pull/955">tc39/ecma262##955</a>.</li>
   </ul>
 
 </emu-clause>
 
 
-<!-- es6num="11" -->
 <!--
 <emu-clause id="sec-ecmascript-language-lexical-grammar">
   <h1>ECMAScript Language: Lexical Grammar (<a href="https://tc39.github.io/ecma262/#sec-ecmascript-language-lexical-grammar">11</a>)</h1>
 -->
 
-  <!-- es6num="11.7" -->
   <emu-clause id="sec-punctuators">
     <h1>Punctuators (<a href="https://tc39.github.io/ecma262/#sec-punctuators">11.7</a>)</h1>
     <h2>Syntax</h2>
@@ -85,13 +82,11 @@
 </emu-clause>
 -->
 
-<!-- es6num="12" -->
 <!--
 <emu-clause id="sec-ecmascript-language-expressions">
   <h1>ECMAScript Language: Expressions (<a href="https://tc39.github.io/ecma262/#sec-ecmascript-language-expressions">12</a>)</h1>
 -->
 
-  <!-- es6num="12.3" -->
   <emu-clause id="sec-left-hand-side-expressions">
     <h1>Left-Hand-Side Expressions (<a href="https://tc39.github.io/ecma262/#sec-left-hand-side-expressions">12.3</a>)</h1>
     <h2>Syntax</h2>
@@ -100,7 +95,7 @@
         PrimaryExpression[?Yield, ?Await]
         MemberExpression[?Yield, ?Await] `[` Expression[+In, ?Yield, ?Await] `]`
         MemberExpression[?Yield, ?Await] `.` IdentifierName
-        MemberExpression[?Yield, ?Await] TemplateLiteral[?Yield, ?Await]
+        MemberExpression[?Yield, ?Await] TemplateLiteral[?Yield, ?Await, +Tagged]
         SuperProperty[?Yield, ?Await]
         MetaProperty
         `new` MemberExpression[?Yield, ?Await] Arguments[?Yield, ?Await]
@@ -125,7 +120,7 @@
         CallExpression[?Yield, ?Await] Arguments[?Yield, ?Await]
         CallExpression[?Yield, ?Await] `[` Expression[+In, ?Yield, ?Await] `]`
         CallExpression[?Yield, ?Await] `.` IdentifierName
-        CallExpression[?Yield, ?Await] TemplateLiteral[?Yield, ?Await]
+        CallExpression[?Yield, ?Await] TemplateLiteral[?Yield, ?Await, +Tagged]
 
       SuperCall[Yield, Await] :
         `super` Arguments[?Yield, ?Await]
@@ -163,12 +158,11 @@
     </emu-grammar>
     <h2>Supplemental Syntax</h2>
     <p>When processing an instance of the production <emu-grammar>CallExpression : CoverCallExpressionAndAsyncArrowHead</emu-grammar> the interpretation of |CoverCallExpressionAndAsyncArrowHead| is refined using the following grammar:</p>
-    <emu-grammar>
+    <emu-grammar type="definition">
       CallMemberExpression[Yield, Await] :
         MemberExpression[?Yield, ?Await] Arguments[?Yield, ?Await]
     </emu-grammar>
 
-    <!-- es6num="12.3.1" -->
     <emu-clause id="sec-static-semantics">
       <h1>Static Semantics (<a href="https://tc39.github.io/ecma262/#sec-static-semantics">12.3.1</a>)</h1>
 
@@ -178,11 +172,10 @@
           CallExpression : CoverCallExpressionAndAsyncArrowHead
         </emu-grammar>
         <emu-alg>
-          1. Return the result of parsing the lexical token stream matched by |CoverCallExpressionAndAsyncArrowHead| using |CallMemberExpression| as the goal symbol with its <sub>[Yield]</sub> and <sub>[Await]</sub> parameters set to the values used when parsing |CoverCallExpressionAndAsyncArrowHead|.
+          1. Return the |CallMemberExpression| that is covered by |CoverCallExpressionAndAsyncArrowHead|.
         </emu-alg>
       </emu-clause>
 
-      <!-- es6num="12.3.1.1" -->
       <emu-clause id="sec-static-semantics-static-semantics-contains">
         <h1>Static Semantics: Contains</h1>
         <p>With parameter _symbol_.</p>
@@ -225,7 +218,6 @@
         </ins>
       </emu-clause>
 
-      <!-- es6num="12.3.1.2" -->
       <emu-clause id="sec-static-semantics-static-semantics-isfunctiondefinition">
         <h1>Static Semantics: IsFunctionDefinition</h1>
         <emu-see-also-para op="IsFunctionDefinition"></emu-see-also-para>
@@ -250,7 +242,6 @@
         </emu-alg>
       </emu-clause>
 
-      <!-- es6num="12.3.1.3" -->
       <emu-clause id="sec-static-semantics-static-semantics-isdestructuring">
         <h1>Static Semantics: IsDestructuring</h1>
         <emu-see-also-para op="IsDestructuring"></emu-see-also-para>
@@ -280,7 +271,6 @@
         </emu-alg>
       </emu-clause>
 
-      <!-- es6num="12.3.1.4" -->
       <emu-clause id="sec-static-semantics-static-semantics-isidentifierref">
         <h1>Static Semantics: IsIdentifierRef</h1>
         <emu-see-also-para op="IsIdentifierRef"></emu-see-also-para>
@@ -305,7 +295,6 @@
         </emu-alg>
       </emu-clause>
 
-      <!-- es6num="12.3.1.5" -->
       <emu-clause id="sec-static-semantics-static-semantics-isvalidsimpleassignmenttarget">
         <h1>Static Semantics: IsValidSimpleAssignmentTarget</h1>
         <emu-see-also-para op="IsValidSimpleAssignmentTarget"></emu-see-also-para>
@@ -350,7 +339,6 @@
       </emu-clause>
     </emu-clause>
 
-    <!-- es6num="12.3.2" -->
     <emu-clause id="sec-property-accessors">
       <h1>Property Accessors (<a href="https://tc39.github.io/ecma262/#sec-property-accessors">12.3.2</a>)</h1>
       <emu-note>
@@ -385,7 +373,6 @@
         <p>where &lt;<i>identifier-name-string</i>&gt; is the result of evaluating StringValue of |IdentifierName|.</p>
       </emu-note>
 
-      <!-- es6num="12.3.2.1" -->
       <emu-clause id="sec-property-accessors-runtime-semantics-evaluation">
         <h1>Runtime Semantics: Evaluation</h1>
         <emu-grammar>MemberExpression : MemberExpression `[` Expression `]`</emu-grammar>
@@ -440,18 +427,15 @@
 
     </emu-clause>
 
-    <!-- es6num="12.3.3" -->
     <emu-clause id="sec-new-operator">
       <h1>The `new` Operator (<a href="https://tc39.github.io/ecma262/#sec-new-operator">12.3.3</a>)</h1>
 
       <p><i>(not modified)</i></p>
     </emu-clause>
 
-    <!-- es6num="12.3.4" -->
     <emu-clause id="sec-function-calls">
       <h1>Function Calls (<a href="https://tc39.github.io/ecma262/#sec-function-calls">12.3.4</a>)</h1>
 
-      <!-- es6num="12.3.4.1" -->
       <emu-clause id="sec-function-calls-runtime-semantics-evaluation">
         <h1>Runtime Semantics: Evaluation</h1>
         <emu-grammar>CallExpression : CoverCallExpressionAndAsyncArrowHead</emu-grammar>
@@ -463,8 +447,7 @@
           1. Let _func_ be ? GetValue(_ref_).
           1. If Type(_ref_) is Reference, IsPropertyReference(_ref_) is *false*, and GetReferencedName(_ref_) is `"eval"`, then
             1. If SameValue(_func_, %eval%) is *true*, then
-              1. Let _argList_ be ArgumentListEvaluation of _arguments_.
-              1. ReturnIfAbrupt(_argList_).
+              1. Let _argList_ be ? ArgumentListEvaluation of _arguments_.
               1. If _argList_ has no elements, return *undefined*.
               1. Let _evalText_ be the first element of _argList_.
               1. If the source code matching this |CallExpression| is strict mode code, let _strictCaller_ be *true*. Otherwise let _strictCaller_ be *false*.
@@ -486,9 +469,8 @@
         </emu-alg>
       </emu-clause>
 
-      <!-- es6num="12.3.4.2" -->
-      <emu-clause id="sec-evaluatecall" aoid="EvaluateCall">
-        <h1>Runtime Semantics: EvaluateCall(_func_, _ref_, _arguments_, _tailPosition_ )</h1>
+      <emu-clause id="sec-evaluatecall" aoid="EvaluateCall" oldids="sec-evaluatedirectcall">
+        <h1>Runtime Semantics: EvaluateCall ( _func_, _ref_, _arguments_, _tailPosition_ )</h1>
         <p>The abstract operation EvaluateCall takes as arguments a value _func_, a value _ref_, a Parse Node _arguments_, and a Boolean argument _tailPosition_. It performs the following steps:</p>
         <emu-alg>
           1. If Type(_ref_) is Reference, then
@@ -512,21 +494,18 @@
       </emu-clause>
     </emu-clause>
 
-    <!-- es6num="12.3.5" -->
     <emu-clause id="sec-super-keyword">
       <h1>The `super` Keyword (<a href="https://tc39.github.io/ecma262/#sec-super-keyword">12.3.5</a>)</h1>
 
       <p><i>(not modified)</i></p>
     </emu-clause>
 
-    <!-- es6num="12.3.6" -->
     <emu-clause id="sec-argument-lists">
       <h1>Argument Lists (<a href="https://tc39.github.io/ecma262/#sec-argument-lists">12.3.6</a>)</h1>
 
       <p><i>(not modified)</i></p>
     </emu-clause>
 
-    <!-- es6num="12.3.7" -->
     <emu-clause id="sec-tagged-templates">
       <h1>Tagged Templates (<a href="https://tc39.github.io/ecma262/#sec-tagged-templates">12.3.7</a>)</h1>
       <p><i>(not modified)</i></p>
@@ -603,7 +582,6 @@
     </emu-clause>
     </ins>
 
-    <!-- es6num="12.3.8" -->
     <emu-clause id="sec-meta-properties">
       <h1>Meta Properties (<a href="https://tc39.github.io/ecma262/#sec-meta-properties">12.3.8</a>)</h1>
 
@@ -614,19 +592,15 @@
 </emu-clause>
 -->
 
-<!-- es6num="14" -->
 <!--
 <emu-clause id="sec-ecmascript-language-functions-and-classes">
   <h1>ECMAScript Language: Functions and Classes (<a href="https://tc39.github.io/ecma262/#sec-ecmascript-language-functions-and-classes">14</a>)</h1>
 -->
-  <!-- es6num="14.6" -->
   <emu-clause id="sec-tail-position-calls">
     <h1>Tail Position Calls (<a href="https://tc39.github.io/ecma262/#sec-tail-position-calls">14.8</a>)</h1>
-    <!-- es6num="14.6.2" -->
     <emu-clause id="sec-static-semantics-hascallintailposition">
       <h1>Static Semantics: HasCallInTailPosition (<a href="https://tc39.github.io/ecma262/#sec-static-semantics-hascallintailposition">14.8.2</a>)</h1>
       <p>With parameter _call_.</p>
-      <!-- es6num="14.6.2.2" -->
       <emu-clause id="sec-expression-rules">
         <h1>Expression Rules</h1>
         <p><i>The following cases are added:</i></p>
