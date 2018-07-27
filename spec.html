@@ -29,6 +29,8 @@ ins .hljs.hljs {
 
   <p>For the syntax, we use the `?.` token, with a lookahead at the level of the lexical grammar that allows to discriminate between `a?.b` (optional chaining) and `a?.3:0` (conditional operator, whose meaning cannot be changed due to backward compatibility constraints).</p>
 
+  <p>The definitive syntax is still an open issue at this point.<p>
+
   <p>An <a href="https://claudepache.github.io/es-optional-chaining/">early version of this proposal</a> used a Nil reference to express short-circuiting. This one is based on syntax only.</p>
 
   <p>Normative additions are marked <ins>like this</ins>. In order to avoid distraction, we don’t mark mere editorial amendments.</p>
@@ -39,6 +41,11 @@ ins .hljs.hljs {
     <li>In new content, adoption of calling convention for directed operations of PR <a href="https://github.com/tc39/ecma262/pull/955">tc39/ecma262##955</a>.</li>
   </ul>
 
+  <p>The following features may not be evident at a cursory read:</p>
+  <ul>
+    <li>Optional chaining is forbidden in write contexts such as `a?.b = c`. This is handled by defining properly the IsValidSimpleAssignmentTarget static semantics rule (<emu-xref href="#sec-static-semantics-static-semantics-isvalidsimpleassignmenttarget"></emu-xref>).</li>
+    <li>Optional deletion as in: `delete a ?.b` is supported. There is no change needed in Section <emu-xref href="#sec-delete-operator">The delete Operator</emu-xref>.</li>
+  </ul>
 </emu-clause>
 
 
