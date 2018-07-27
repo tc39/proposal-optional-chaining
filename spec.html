@@ -4,6 +4,11 @@
 <link href="ecmarkup.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
 <script src="ecmarkup.js"></script>
+<style>
+ins .hljs.hljs {
+  background-color: inherit;
+}
+</style>
 <script>
   if (location.hostname.endsWith('.github.io') && location.protocol !== 'https:') {
     location.protocol = 'https:';
@@ -146,9 +151,11 @@
         OptionalChainingPunctuator `[` Expression[+In, ?Yield, ?Await] `]`
         OptionalChainingPunctuator IdentifierName
         OptionalChainingPunctuator Arguments[?Yield, ?Await]
+        OptionalChainingPunctuator TemplateLiteral[?Yield, ?Await, +Tagged]
         OptionalChain[?Yield, ?Await]  `[` Expression[+In, ?Yield, ?Await] `]`
         OptionalChain[?Yield, ?Await] `.` IdentifierName
         OptionalChain[?Yield, ?Await] Arguments[?Yield, ?Await]
+        OptionalChain[?Yield, ?Await] TemplateLiteral[?Yield, ?Await, +Tagged]
       </ins>
 
       LeftHandSideExpression[Yield, Await] :
@@ -165,6 +172,35 @@
 
     <emu-clause id="sec-static-semantics">
       <h1>Static Semantics (<a href="https://tc39.github.io/ecma262/#sec-static-semantics">12.3.1</a>)</h1>
+
+      <ins class="block">
+      <emu-clause id="sec-left-hand-side-expressions-static-semantics-early-errors">
+        <h1>Static Semantics: Early Errors</h1>
+        <emu-grammar>
+          OptionalChain[Yield, Await] :
+            OptionalChainingPunctuator TemplateLiteral[?Yield, ?Await, +Tagged]
+            OptionalChain[?Yield, ?Await] TemplateLiteral[?Yield, ?Await, +Tagged]
+        </emu-grammar>
+        <ul>
+          <li>
+            It is a Syntax Error if any code matches this production.
+          </li>
+        </ul>
+        <emu-note>
+          <p>This production exists in order to prevent automatic semicolon insertion rules (<emu-xref href="#sec-automatic-semicolon-insertion"></emu-xref>) to be applied to the following code:</p>
+          <pre><code class="javascript">
+            a?.b
+            `c`
+          </code></pre>
+          <p>so that it would be interpreted as two valid statements. The purpose is to maintain consistency with similar code without optional chaining operator:</p>
+          <pre><code class="javascript">
+            a.b
+            `c`
+          </code></pre>
+          <p>which is a valid statement and where automatic semicolon insertion does not apply.</p>
+        </emu-note>
+      </emu-clause>
+      </ins>
 
       <emu-clause id="sec-left-hand-side-expressions-static-semantics-coveredcallexpression">
         <h1>Static Semantics: CoveredCallExpression</h1>
