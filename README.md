@@ -123,7 +123,7 @@ a == null ? undefined : a.b[3].c == null ? undefined : a.b[3].c(x).d
 
 ### Edge case: grouping
 
-Parentheses limit the scope of short-circuting:
+Parentheses limit the scope of short-circuiting:
 
 ```js
 (a?.b).c
