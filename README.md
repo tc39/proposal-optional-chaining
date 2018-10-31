@@ -54,19 +54,23 @@ obj?.[expr]     // optional dynamic property access
 ## Semantics
 
 ### Base case
-If the operand at the left-hand side of the `?.` operator evaluates to undefined or null, the expression returns undefined or null respectively. Otherwise the targeted property is accessed normally.
+If the operand at the left-hand side of the `?.` operator evaluates to undefined or null, the expression evaluates to undefined. Otherwise the targeted property access, method or function call is triggered normally.
 
 Here are basic examples, each one followed by its desugaring. (The desugaring is not exact in the sense that the LHS should be evaluated only once.)
 ```js
-a?.b                     // if `a` is null/undefined, return null/undefined respectively, `a.b` otherwise.
-a == null ? a : a.b
+a?.b                          // undefined if `a` is null/undefined, `a.b` otherwise.
+a == null ? undefined : a.b
 
-a?.[x]                   // if `a` is null/undefined, return null/undefined respectively, `a[x]` otherwise.
-a === null ? a : a[x]
+a?.[x]                        // undefined if `a` is null/undefined, `a[x]` otherwise.
+a == null ? undefined : a[x]
 
-a?.b()                   // if `a` is null/undefined, return null/undefined respectively,
-a === null ? a : a.b()   // throws a TypeError if `a.b` is not a function
-                         // otherwise, evaluates to `a.b()`
+a?.b()                        // undefined if `a` is null/undefined
+a == null ? undefined : a.b() // throws a TypeError if `a.b` is not a function
+                              // otherwise, evaluates to `a.b()`
+
+a?.()                        // undefined if `a` is null/undefined
+a == null ? undefined : a()  // throws a TypeError if `a` is neither null/undefined, nor a function
+                             // invokes the function `a` otherwise
 ```
 
 ### Short-circuiting
@@ -74,18 +78,18 @@ a === null ? a : a.b()   // throws a TypeError if `a.b` is not a function
 If the expression on the LHS of `?.` evaluates to null/undefined, the RHS is not evaluated. This concept is called *short-circuiting*.
 
 ```js
-a?.[++x]         // `x` is incremented if and only if `a` is not null/undefined
-a == null ? a : a[++x]
+a?.[++x]         // `x` is incremented if and only if `a` is not null/undefined
+a == null ? undefined : a[++x]
 ```
 
 ### Long short-circuiting
 
-In fact, short-circuiting, when triggered, skips not only the current property access, but also the whole chain of property accesses directly following the Optional Chaining operator.
+In fact, short-circuiting, when triggered, skips not only the current property access, method or function call, but also the whole chain of property accesses, method or function calls directly following the Optional Chaining operator.
 
 ```js
-a?.b.c(++x).d  // if `a` is null/undefined, evaluates to null/undefined respectively. Variable `x` is not incremented.
-               // otherwise, evaluates to `a.b.c(++x).d`.
-a == null ? a : a.b.c(++x).d
+a?.b.c(++x).d  // if `a` is null/undefined, evaluates to undefined. Variable `x` is not incremented.
+               // otherwise, evaluates to `a.b.c(++x).d`.
+a == null ? undefined : a.b.c(++x).d
 ```
 
 Note that the check for nullity is made on `a` only. If, for example, `a` is not null, but `a.b` is null, a TypeError will be thrown when attempting to access the property `"c"` of `a.b`.
@@ -99,8 +103,8 @@ Let’s call *Optional Chain* an Optional Chaining operator followed by a chain 
 An Optional Chain may be followed by another Optional Chain.
 
 ```js
-a?.b[3].c?.d(x)
-a == null ? undefined : a.b[3].c == null ? undefined : a.b[3].c.d(x)
+a?.b[3].c?.(x).d
+a == null ? undefined : a.b[3].c == null ? undefined : a.b[3].c(x).d
   // (as always, except that `a` and `a.b[3].c` are evaluated only once)
 ```
 
@@ -125,7 +129,7 @@ Although they could be included for completeness, the following are not supporte
 * optional construction: `new a?.()`
 * optional template literal: ``a?.`{b}` ``
 * constructor or template literals in/after an Optional Chain: `new a?.b()`, ``a?.b`{c}` ``
-* optional assignment: `a?.b?.c = x`
+* optional assignment: `a?.b = x`
 
 All the above cases will be forbidden by the grammar or by static semantics so that support might be added later.
 

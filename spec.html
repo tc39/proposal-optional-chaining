@@ -157,7 +157,6 @@ ins .hljs.hljs {
       OptionalChain[Yield, Await] :
         OptionalChainingPunctuator `[` Expression[+In, ?Yield, ?Await] `]`
         OptionalChainingPunctuator IdentifierName
-        OptionalChainingPunctuator Arguments[?Yield, ?Await]
         OptionalChainingPunctuator TemplateLiteral[?Yield, ?Await, +Tagged]
         OptionalChain[?Yield, ?Await]  `[` Expression[+In, ?Yield, ?Await] `]`
         OptionalChain[?Yield, ?Await] `.` IdentifierName
@@ -514,10 +513,8 @@ ins .hljs.hljs {
           1. Let _baseExpression_ be the first child of this production (i.e., this |MemberExpression|, |CallExpression|, or |OptionalExpression|).
           1. Let _baseReference_ be ? _baseExpression_.Evaluation().
           1. Let _baseValue_ be ? GetValue(_baseReference_).
-          1. If _baseValue_ is *undefined*, then
+          1. If _baseValue_ is *undefined* or *null*, then
             1. Return *undefined*.
-          1. If _baseValue_ is *null*, then
-            1. Return *null*.
           1. Let _optionalChain_ be this |OptionalChain|.
           1. Return ? _optionalChain_.ChainEvaluation(_baseValue_, _baseReference_).
         </emu-alg>
@@ -551,6 +548,15 @@ ins .hljs.hljs {
           1. If the code matched by this production is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
           1. Return ? EvaluateStaticPropertyAccess(_newValue_, |IdentifierName|, _strict_).
         </emu-alg>
+        <emu-grammar>OptionalChain : OptionalChain Arguments</emu-grammar>
+        <emu-alg>
+          1. Let _optionalChain_ be this |OptionalChain|.
+          1. Let _newReference_ be ? _optionalChain_.ChainEvaluation(_baseValue_, _baseReference_).
+          1. Let _newValue_ be ? GetValue(_newReference_).
+          1. Let _thisChain_ be this production.
+          1. Let _tailCall_ be IsInTailPosition(_thisChain_).
+          1. Return ? EvaluateCall(_newValue_, _newReference_, |Arguments|, _tailCall_).
+        </emu-alg>
       </emu-clause>
     </emu-clause>
     </ins>
@@ -581,6 +587,7 @@ ins .hljs.hljs {
         <emu-grammar>
           OptionalExpression :
             MemberExpression OptionalChain
+            CallExpression OptionalChain
             OptionalExpression OptionalChain
         </emu-grammar>
         <emu-alg>
