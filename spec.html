@@ -507,6 +507,7 @@ ins .hljs.hljs {
         <emu-grammar>
           OptionalExpression :
             MemberExpression OptionalChain
+            CallExpression OptionalChain
             OptionalExpression OptionalChain
         </emu-grammar>
         <emu-alg>
@@ -605,7 +606,6 @@ ins .hljs.hljs {
         </emu-alg>
         <emu-grammar>
           OptionalChain :
-            OptionalChainingPunctuator Arguments
             OptionalChain Arguments
         </emu-grammar>
         <emu-alg>
