@@ -129,7 +129,7 @@ Although they could be included for completeness, the following are not supporte
 * optional construction: `new a?.()`
 * optional template literal: ``a?.`{b}` ``
 * constructor or template literals in/after an Optional Chain: `new a?.b()`, ``a?.b`{c}` ``
-* optional assignment: `a?.b = x`
+* optional property assignment: `a?.b = x`
 
 All the above cases will be forbidden by the grammar or by static semantics so that support might be added later.
 
