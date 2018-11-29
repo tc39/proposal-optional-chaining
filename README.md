@@ -7,6 +7,7 @@ Current Stage:
 ## Authors
 * Claude Pache (@claudepache)
 * Gabriel Isenberg (@the_gisenberg)
+* Dustin Savery (@dustinsavery)
 
 ## Overview and motivation
 When looking for a property value that's deep in a tree-like structure, one often has to check whether intermediate nodes exist:
