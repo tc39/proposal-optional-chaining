@@ -7,6 +7,7 @@ Current Stage:
 ## Authors
 * Claude Pache (@claudepache)
 * Gabriel Isenberg (@the_gisenberg)
+* Dustin Savery (@dustinsavery)
 
 ## Overview and motivation
 When looking for a property value that's deep in a tree-like structure, one often has to check whether intermediate nodes exist:
@@ -29,19 +30,6 @@ var street = user.address?.street
 var fooValue = myForm.querySelector('input[name=foo]')?.value
 ```
 
-The call variant of Optional Chaining is useful for dealing with interfaces that have optional methods:
-
-```js
-iterator.return?.() // manually close an iterator
-```
-or with methods not universally implemented:
-```js
-if (myForm.checkValidity?.() === false) { // skip the test in older web browsers
-    // form validation fails
-    return;
-}
-```
-
 ## Prior Art
 The following languages implement the operator with the same general semantics as this proposal (i.e., 1) guarding against a null base value, and 2) short-circuiting application to the whole chain):
 * C#: [Null-conditional operator](https://msdn.microsoft.com/en-us/library/dn986595.aspx) — null-conditional member access or index, in read access.
@@ -58,7 +46,6 @@ The Optional Chaining operator is spelled `?.`. It may appear in three positions
 ```javascript
 obj?.prop       // optional static property access
 obj?.[expr]     // optional dynamic property access
-func?.(...args) // optional function or method call
 ```
 
 ### Notes
@@ -79,11 +66,7 @@ a == null ? undefined : a[x]
 
 a?.b()                        // undefined if `a` is null/undefined
 a == null ? undefined : a.b() // throws a TypeError if `a.b` is not a function
-                              // otherwise, evaluates to `a.b()`
-
-a?.()                        // undefined if `a` is null/undefined
-a == null ? undefined : a()  // throws a TypeError if `a` is neither null/undefined, nor a function
-                             // invokes the function `a` otherwise
+                              // otherwise, evaluates to `a.b()`
 ```
 
 ### Short-circuiting
@@ -116,9 +99,9 @@ Let’s call *Optional Chain* an Optional Chaining operator followed by a chain 
 An Optional Chain may be followed by another Optional Chain.
 
 ```js
-a?.b[3].c?.(x).d
-a == null ? undefined : a.b[3].c == null ? undefined : a.b[3].c(x).d
-  // (as always, except that `a` and `a.b[3].c` are evaluated only once)
+a?.b?.['foo'].c(x).d
+a == null ? undefined : a.b['foo'] == null ? undefined : a.b['foo'].c(x).d
+  // (as always, except that `a` and `a.b['foo']` are evaluated only once)
 ```
 
 ### Edge case: grouping
@@ -134,19 +117,12 @@ That follows from the design choice of specifying the scope of short-circuiting 
 
 Note that, whatever the semantics are, there is no practical reason to use parentheses in that position anyway.
 
-### Optional deletion
-
-Because the `delete` operator is very liberal in what it accepts, we have that feature for free:
-```js
-delete a?.b
-// delete (a == null ? undefined : a.b) // that *would* work if `? :` could return a Reference...
-a == null ? undefined : delete a.b      // this is what we get, really
-```
-
 ## Not supported
 
 Although they could be included for completeness, the following are not supported due to lack of real-world use cases or other compelling reasons; see [Issue # 22](https://github.com/tc39/proposal-optional-chaining/issues/22) and [Issue #54](https://github.com/tc39/proposal-optional-chaining/issues/54) for discussion:
 
+* optional function execution: `a?.()`
+* optional deletion: `delete a?.b`
 * optional construction: `new a?.()`
 * optional template literal: ``a?.`{b}` ``
 * constructor or template literals in/after an Optional Chain: `new a?.b()`, ``a?.b`{c}` ``
@@ -165,16 +141,16 @@ All the above cases will be forbidden by the grammar or by static semantics so t
 <dl>
 
 
-<dt>obj?.[expr]  and  func?.(arg)  look ugly. Why not use  obj?[expr]  and  func?(arg)  as does &lt;language X>?
+<dt>obj?.[expr] looks ugly. Why not use  obj?[expr]  as does &lt;language X>?
 
 <dd>
 
-We don’t use the `obj?[expr]` and `func?(arg)` syntax, because of the difficulty for the parser to efficiently distinguish those forms from the conditional operator, e.g., `obj?[expr].filter(fun):0` and `func?(x - 2) + 3 :1`.
+We don’t use the `obj?[expr]` syntax, because of the difficulty for the parser to efficiently distinguish those forms from the conditional operator, e.g., `obj?[expr].filter(fun):0`.
 
 Alternative syntaxes for those two cases each have their own flaws; and deciding which one looks the least bad is mostly a question of personal taste. Here is how we made our choice:
 
 * pick the best syntax for the `obj?.prop` case, which is expected to occur most often;
-* extend the use of the recognisable `?.` sequence of characters to other cases: `obj?.[expr]`, `func?.(arg)`.
+* extend the use of the recognisable `?.` sequence of characters to other cases: `obj?.[expr]`.
 
 As for &lt;language X>, it has different syntactical constraints than JavaScript because of &lt;some construct not supported by X or working differently in X>.
 
