@@ -48,6 +48,7 @@ The following languages implement the operator with the same general semantics a
 * C#: [Null-conditional operator](https://msdn.microsoft.com/en-us/library/dn986595.aspx) — null-conditional member access or index, in read access.
 * Swift: [Optional Chaining](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/OptionalChaining.html#//apple_ref/doc/uid/TP40014097-CH21-ID245) — optional property, method, or subscript call, in read and write access.
 * CoffeeScript: [Existential operator](http://coffeescript.org/#existential-operator) — existential operator variant for property accessor, function call, object construction. Also applies to assignment and deletion.
+* Kotlin: [Safe calls](https://kotlinlang.org/docs/reference/null-safety.html#safe-calls) - optional property access for read; optional property assignment for write.
 
 The following languages have a similar feature. We haven’t checked whether they have significant differences in semantics with this proposal:
 * Groovy: [Safe navigation operator](http://groovy-lang.org/operators.html#_safe_navigation_operator)
