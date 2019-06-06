@@ -150,8 +150,8 @@ a == null ? undefined : delete a.b      // this is what we get, really
 Although they could be included for completeness, the following are not supported due to lack of real-world use cases or other compelling reasons; see [Issue # 22](https://github.com/tc39/proposal-optional-chaining/issues/22) and [Issue #54](https://github.com/tc39/proposal-optional-chaining/issues/54) for discussion:
 
 * optional construction: `new a?.()`
-* optional template literal: ``a?.`{b}` ``
-* constructor or template literals in/after an Optional Chain: `new a?.b()`, ``a?.b`{c}` ``
+* optional template literal: ``a?.`string` ``
+* constructor or template literals in/after an Optional Chain: `new a?.b()`, ``a?.b`string` ``
 
 The following is not supported, although it has some use cases; see [Issue #18](//github.com/tc39/proposal-optional-chaining/issues/18) for discussion:
 
