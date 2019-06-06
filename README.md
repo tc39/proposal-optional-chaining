@@ -159,6 +159,14 @@ The following is not supported, although it has some use cases; see [Issue #18](
 
 All the above cases will be forbidden by the grammar or by static semantics so that support might be added later.
 
+## Open issues
+
+### Private class fields and methods
+[Issue #28](https://github.com/tc39/proposal-optional-chaining/issues/28): Should optional chains support the upcoming private [class fields](https://github.com/tc39/proposal-class-fields) and [private methods](https://github.com/tc39/proposal-private-methods), as in `a?.#b`, `a?.#b()` or `a?.b.#c`? Quoting [microsoft/TypeScript#30167 (comment)](https://github.com/microsoft/TypeScript/issues/30167#issuecomment-468881537):
+
+> This one isn't baked into the proposal yet, simply because private fields themselves aren't baked yet. So we don't want to hold up this proposal if that one happens to stall out. Once that one has reached Stage 4, we will address it then.
+
+
 ## FAQ
 
 [TODO: to be completed. In particular, discuss specific criticisms around long short-circuiting.]
