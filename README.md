@@ -235,6 +235,21 @@ Deeply nested tree-like structures is not the sole use case of Optional Chaining
 
 See also [Usage statistics on optional chaining in CoffeeScript](https://github.com/tc39/proposal-optional-chaining/issues/17) and compare “Total soak operations” with “Total soak operations chained on top of another soak”.
 
+<dt>The feature looks like an error suppression operator, right?
+  
+<dd>
+
+No. Optional Chaining just checks whether some value is undefined or null. It does not catch or suppress errors that are thrown by evaluating the surrounding code. For example:
+
+```js
+(function () {
+    "use strict"
+    undeclared_var?.b    // ReferenceError: undeclared_var is not defined
+    arguments?.callee    // TypeError: 'callee' may not be accessed in strict mode
+    arguments.callee?.() // TypeError: 'callee' may not be accessed in strict mode
+})()
+```
+
 </dl>
 
 ## Specification
