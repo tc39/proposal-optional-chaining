@@ -159,6 +159,13 @@ The following is not supported, although it has some use cases; see [Issue #18](
 
 All the above cases will be forbidden by the grammar or by static semantics so that support might be added later.
 
+## Out of scope
+
+There has been various interesting ideas for applying the idea of “optional” to other constructs. However, there are not part of this proposal. For example:
+
+* optional spread, see [Issue #55](//github.com/tc39/proposal-optional-chaining/issues/55);
+* optional destructuring, see [Issue #74](//github.com/tc39/proposal-optional-chaining/issues/74).
+
 ## Open issues
 
 ### Private class fields and methods
