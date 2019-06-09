@@ -195,7 +195,12 @@ Alternative syntaxes for those two cases each have their own flaws; and deciding
 
 As for &lt;language X>, it has different syntactical constraints than JavaScript because of &lt;some construct not supported by X or working differently in X>.
 
-
+<dt>Ok, but I <b>really</b> think that <i>&lt;alternative syntax></i> is better
+  
+<dd>
+  
+Various alternative syntaxes has been explored and extensively discussed in the past. None of them gained consensus. Search for [issues
+with label “alternative syntax”](https://github.com/tc39/proposal-optional-chaining/issues?utf8=%E2%9C%93&q=label%3A%22alternative+syntax%22).
 
 <dt>Why does (null)?.b evaluate to undefined rather than null?
 
