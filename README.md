@@ -200,7 +200,8 @@ As for &lt;language X>, it has different syntactical constraints than JavaScript
 <dd>
   
 Various alternative syntaxes has been explored and extensively discussed in the past. None of them gained consensus. Search for [issues
-with label “alternative syntax”](https://github.com/tc39/proposal-optional-chaining/issues?utf8=%E2%9C%93&q=label%3A%22alternative+syntax%22).
+with label “alternative syntax”](https://github.com/tc39/proposal-optional-chaining/issues?utf8=%E2%9C%93&q=label%3A%22alternative+syntax%22), as well as [issues
+with label “alternative syntax and semantics”](https://github.com/tc39/proposal-optional-chaining/issues?utf8=%E2%9C%93&q=label%3A%22alternative+syntax+and+semantics%22) for those that had impact on semantics.
 
 <dt>Why does (null)?.b evaluate to undefined rather than null?
 
