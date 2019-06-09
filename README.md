@@ -141,9 +141,9 @@ Note that, whatever the semantics are, there is no practical reason to use paren
 Because the `delete` operator is very liberal in what it accepts, we have that feature for free:
 ```js
 delete a?.b
-// delete (a == null ? undefined : a.b) // that *would* work if `? :` could return a Reference...
-a == null ? undefined : delete a.b      // this is what we get, really
+a == null ? true : delete a.b
 ```
+where `true` is the result of `delete undefined `.
 
 ## Not supported
 
