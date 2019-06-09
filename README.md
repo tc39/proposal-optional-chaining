@@ -143,7 +143,7 @@ Because the `delete` operator is very liberal in what it accepts, we have that f
 delete a?.b
 a == null ? true : delete a.b
 ```
-where `true` is the result of `delete undefined `.
+where `true` is the usual result of attempting to delete a non-Reference.
 
 ## Not supported
 
