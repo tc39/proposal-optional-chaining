@@ -30,6 +30,16 @@ var street = user.address?.street
 var fooValue = myForm.querySelector('input[name=foo]')?.value
 ```
 
+When some other value than `undefined` is desired for the missing case, this can usually be handled with the [Nullish coalescing operator](//github.com/tc39/proposal-nullish-coalescing):
+
+```javascript
+// falls back to a default value when response.setting is missing or nullish
+// (response.settings == null) or when respsonse.setting.animationDuration is missing
+// or nullish (response.settings.animationDuration == null)
+const animationDuration = response.settings?.animationDuration ?? 300;
+
+```
+
 The call variant of Optional Chaining is useful for dealing with interfaces that have optional methods:
 
 ```js
