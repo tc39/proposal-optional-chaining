@@ -189,8 +189,6 @@ There has been various interesting ideas for applying the idea of “optional”
 
 ## FAQ
 
-[TODO: to be completed. In particular, discuss specific criticisms around long short-circuiting.]
-
 
 <dl>
 
