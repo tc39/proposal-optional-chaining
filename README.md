@@ -62,13 +62,13 @@ The following languages implement the operator with the same general semantics a
 * CoffeeScript: [Existential operator](http://coffeescript.org/#existential-operator) — existential operator variant for property accessor, function call, object construction (`new a?()`). Also applies to assignment and deletion.
 
 The following languages have a similar feature, but do not short-circuit the whole chain when it is longer than one element. This is justified by the fact that, in those languages, methods or properties might be legitimatally used on null (e.g., null.toString() == "null" in Dart):
-* Kotlin: [Safe calls](https://kotlinlang.org/docs/reference/null-safety.html#safe-calls) - optional property access for read; optional property assignment for write.
+* Kotlin: [Safe calls](https://kotlinlang.org/docs/reference/null-safety.html#safe-calls) — optional property access for read; optional property assignment for write.
 * Dart: [Conditional member access](https://dart.dev/guides/language/language-tour#other-operators) — optional property access.
+* Ruby: [Safe navigation operator](https://ruby-doc.org/core-2.6/doc/syntax/calling_methods_rdoc.html#label-Safe+navigation+operator) — Spelled as: `a&.b`
 
 
 The following languages have a similar feature. We haven’t checked whether they have significant differences in semantics with this proposal:
 * Groovy: [Safe navigation operator](http://groovy-lang.org/operators.html#_safe_navigation_operator)
-* Ruby: [Safe navigation operator](http://mitrev.net/ruby/2015/11/13/the-operator-in-ruby/) — Spelled as: `a&.b`
 
 ## Syntax
 
