@@ -145,6 +145,19 @@ a == null ? true : delete a.b
 ```
 where `true` is the usual result of attempting to delete a non-Reference.
 
+<details><summary>Why do we support optional deletion?</summary>
+
+*   **laziness** (this argument is placed first, not because it is the most important, but because it puts the other ones in the right perspective). Laziness (together with impatience and hubris) is one of the most important virtues of the spec writer. That is, all other things being almost equal, take the solution that involves less stuff to be incorporated in the spec.
+
+    Now, it happens that _supporting_ optional deletion requires literally zero effort, while _not supporting_ it (by making the construct an early syntax error) requires some nontrivial effort. (See [PR #73 (comment)](https://github.com/tc39/proposal-optional-chaining/pull/73#issuecomment-442762076) for technical details.)
+
+    Thus, per the laziness principle, the right question is not: “Are there good reasons to support optional deletion?”, but rather: “Are there good reasons to _remove_ support for optional deletion?”
+
+*   **lack of strong reason** for _removing_ support. The supported semantics of optional deletion is the only one that could be expected (provided that the semantics of the delete operator is correctly understood, of course). It is not like it could in some manner confuse the programmer. In fact, the only real reason is: “We didn’t intend to support it.”
+
+*   **consistency of the delete operator**. It is a fact of life that this operator is very liberal in what it accepts, even pretending to succeed when it is given something that does not make sense (e.g., `delete foo()`). The only error conditions (early or not) are in strict mode, when attempting to delete something that is barred from deletion (nonconfigurable property, variable, ...). Supporting optional deletion fits well in that model, while forbidding it does not.
+</details>
+
 ## Not supported
 
 Although they could be included for completeness, the following are not supported due to lack of real-world use cases or other compelling reasons; see [Issue # 22](https://github.com/tc39/proposal-optional-chaining/issues/22) and [Issue #54](https://github.com/tc39/proposal-optional-chaining/issues/54) for discussion:
