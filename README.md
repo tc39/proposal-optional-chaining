@@ -54,10 +54,12 @@ if (myForm.checkValidity?.() === false) { // skip the test in older web browsers
 ```
 
 ## Prior Art
+Unless otherwise noted, in the following languages, the syntax consists of a question mark prepending the operator, (`a?.b`, `a?.b()`, `a?[b]` or `a?(b)` when applicable).
+
 The following languages implement the operator with the same general semantics as this proposal (i.e., 1) guarding against a null base value, and 2) short-circuiting application to the whole chain):
 * C#: [Null-conditional operator](https://msdn.microsoft.com/en-us/library/dn986595.aspx) — null-conditional member access or index, in read access.
 * Swift: [Optional Chaining](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/OptionalChaining.html#//apple_ref/doc/uid/TP40014097-CH21-ID245) — optional property, method, or subscript call, in read and write access.
-* CoffeeScript: [Existential operator](http://coffeescript.org/#existential-operator) — existential operator variant for property accessor, function call, object construction. Also applies to assignment and deletion.
+* CoffeeScript: [Existential operator](http://coffeescript.org/#existential-operator) — existential operator variant for property accessor, function call, object construction (`new a?()`). Also applies to assignment and deletion.
 
 The following languages have a similar feature, but do not short-circuit the whole chain when it is longer than one element. This is justified by the fact that, in those languages, methods or properties might be legitimatally used on null (e.g., null.toString() == "null" in Dart):
 * Kotlin: [Safe calls](https://kotlinlang.org/docs/reference/null-safety.html#safe-calls) - optional property access for read; optional property assignment for write.
@@ -66,7 +68,7 @@ The following languages have a similar feature, but do not short-circuit the who
 
 The following languages have a similar feature. We haven’t checked whether they have significant differences in semantics with this proposal:
 * Groovy: [Safe navigation operator](http://groovy-lang.org/operators.html#_safe_navigation_operator)
-* Ruby: [Safe navigation operator](http://mitrev.net/ruby/2015/11/13/the-operator-in-ruby/)
+* Ruby: [Safe navigation operator](http://mitrev.net/ruby/2015/11/13/the-operator-in-ruby/) — Spelled as: `a&.b`
 
 ## Syntax
 
