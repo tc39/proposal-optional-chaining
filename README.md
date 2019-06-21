@@ -224,7 +224,7 @@ As for &lt;language X>, it has different syntactical constraints than JavaScript
 
 </dd>
 
-<dt>Ok, but I <b>really</b> think that <i>&lt;alternative syntax></i> is better</dt>
+<dt>Ok, but I really think that &lt;alternative syntax> is better.</dt>
   
 <dd>
   
