@@ -209,7 +209,7 @@ There has been various interesting ideas for applying the idea of “optional”
 <dl>
 
 
-<dt>obj?.[expr]  and  func?.(arg)  look ugly. Why not use  obj?[expr]  and  func?(arg)  as does &lt;language X>?</dt>
+<dt><code>obj?.[expr]</code> and <code>func?.(arg)</code> look ugly. Why not use <code>obj?[expr]</code> and <code>func?(arg)</code> as does &lt;language X>?</dt>
 
 <dd>
 
@@ -234,7 +234,7 @@ with label “alternative syntax and semantics”](https://github.com/tc39/propo
 
 </dd>
 
-<dt>Why does (null)?.b evaluate to undefined rather than null?</dt>
+<dt>Why does <code>(null)?.b</code> evaluate to <code>undefined</code> rather than <code>null</code>?</dt>
 
 <dd>
 
@@ -244,7 +244,7 @@ In particular, the value `null` is considered to have no properties; therefore, 
 
 </dd>
 
-<dt>Why does foo?.() throw when foo is neither nullish nor callable?</dt>
+<dt>Why does <code>foo?.()</code> throw when foo is neither nullish nor callable?</dt>
 
 <dd>
 
@@ -262,7 +262,7 @@ See [Issue #3 (comment)](https://github.com/tc39/proposal-optional-chaining/issu
 
 </dd>
 
-<dt>In a?.b.c, if a.b is null, then a.b.c will evaluate to undefined, right?</dt>
+<dt>In <code>a?.b.c</code>, if <code>a.b</code> is <code>null</code>, then <code>a.b.c</code> will evaluate to <code>undefined</code>, right?</dt>
 
 <dd>
 
@@ -274,7 +274,7 @@ In other words, the `?.` operator has an effect only at the very moment it is ev
 
 </dd>
 
-<dt>In a deeply nested chain like `a?.b?.c`, why should I write `?.` at each level? Should I not be able to write the operator only once for the whole chain?</dt>
+<dt>In a deeply nested chain like <code>a?.b?.c</code>, why should I write <code>?.</code> at each level? Should I not be able to write the operator only once for the whole chain?</dt>
 
 <dd>
 
@@ -282,7 +282,7 @@ By design, we want the developer to be able to mark each place that they expect 
 
 </dd>
 
-<dt>... but, in the case of a deeply nested chain, we almost always want to test for null/undefined at each level, no?</dt>
+<dt>...but, in the case of a deeply nested chain, we almost always want to test for <code>null</code>/<code>undefined</code> at each level, no?</dt>
 
 <dd>
 
