@@ -238,7 +238,13 @@ Neither `a.b` nor `a?.b` is intended to preserve arbitrary information on the ba
 
 In particular, the value `null` is considered to have no properties; therefore, `(null)?.b` is undefined.
 
+<dt>Why does foo?.() throw when foo is neither nullish nor callable?
 
+<dd>
+
+The primary reason is to ensure that `?.` has a consistent semantics in all cases. Instead of making calls a special case where we check `typeof foo === 'function'`, we simply check `foo == null` across the board.
+
+From a usage perspective, one might imagine a library which will call a handler function, e.g. `onChange`, just when the user has provided it. If the user provides the number `3` instead of a function, the library will likely want to throw and inform the user of their mistaken usage. This is exactly what the proposed semantics for `onChange.?()` achieve.
 
 <dt>Why do you want long short-circuiting?</dt>
 
