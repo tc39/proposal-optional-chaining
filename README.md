@@ -248,9 +248,9 @@ In particular, the value `null` is considered to have no properties; therefore, 
 
 <dd>
 
-The primary reason is to ensure that `?.` has a consistent semantics in all cases. Instead of making calls a special case where we check `typeof foo === 'function'`, we simply check `foo == null` across the board.
+Imagine a library which will call a handler function, e.g. `onChange`, just when the user has provided it. If the user provides the number `3` instead of a function, the library will likely want to throw and inform the user of their mistaken usage. This is exactly what the proposed semantics for `onChange?.()` achieve.
 
-From a usage perspective, one might imagine a library which will call a handler function, e.g. `onChange`, just when the user has provided it. If the user provides the number `3` instead of a function, the library will likely want to throw and inform the user of their mistaken usage. This is exactly what the proposed semantics for `onChange?.()` achieve.
+Moreover, this ensures that `?.` has a consistent meaning in all cases. Instead of making calls a special case where we check `typeof foo === 'function'`, we simply check `foo == null` across the board.
 
 Finally, remember that optional chaining is [not an error-suppression mechanism](#is-this-error-suppression).
 
