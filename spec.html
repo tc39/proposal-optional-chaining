@@ -155,10 +155,10 @@ ins .hljs.hljs {
         OptionalExpression[?Yield, ?Await] OptionalChain[?Yield, ?Await]
 
       OptionalChain[Yield, Await] :
-        OptionalChainingPunctuator `[` Expression[+In, ?Yield, ?Await] `]`
-        OptionalChainingPunctuator IdentifierName
-        OptionalChainingPunctuator Arguments[?Yield, ?Await]
-        OptionalChainingPunctuator TemplateLiteral[?Yield, ?Await, +Tagged]
+        `?.` `[` Expression[+In, ?Yield, ?Await] `]`
+        `?.` IdentifierName
+        `?.` Arguments[?Yield, ?Await]
+        `?.` TemplateLiteral[?Yield, ?Await, +Tagged]
         OptionalChain[?Yield, ?Await]  `[` Expression[+In, ?Yield, ?Await] `]`
         OptionalChain[?Yield, ?Await] `.` IdentifierName
         OptionalChain[?Yield, ?Await] Arguments[?Yield, ?Await]
@@ -185,7 +185,7 @@ ins .hljs.hljs {
         <h1>Static Semantics: Early Errors</h1>
         <emu-grammar>
           OptionalChain[Yield, Await] :
-            OptionalChainingPunctuator TemplateLiteral[?Yield, ?Await, +Tagged]
+            `?.` TemplateLiteral[?Yield, ?Await, +Tagged]
             OptionalChain[?Yield, ?Await] TemplateLiteral[?Yield, ?Await, +Tagged]
         </emu-grammar>
         <ul>
@@ -245,7 +245,7 @@ ins .hljs.hljs {
           1. Return *false*.
         </emu-alg>
         <ins class="block">
-        <emu-grammar>OptionalChain : OptionalChainingPunctuator IdentifierName</emu-grammar>
+        <emu-grammar>OptionalChain : `?.` IdentifierName</emu-grammar>
         <emu-alg>
           1. If _symbol_ is a |ReservedWord|, return *false*.
           1. If _symbol_ is an |Identifier| and StringValue of _symbol_ is the same value as the StringValue of |IdentifierName|, return *true*.
@@ -557,8 +557,7 @@ ins .hljs.hljs {
     <ins class="block">
     <emu-clause id="sec-optional-chains">
       <h1>Optional Chains</h1>
-      <emu-note>An optional chain is a chain of property accesses and function calls introduced by an |OptionalChainingPunctuator|.</emu-note>
-      </emu-note>
+      <emu-note>An optional chain is a chain of one or more property accesses and function calls, the first of which is marked optional with `?.`.</emu-note>
       <emu-clause id="sec-optional-chaining-evaluation">
         <h1>Runtime Semantics: Evaluation</h1>
         <emu-grammar>
@@ -580,17 +579,17 @@ ins .hljs.hljs {
       <emu-clause id="sec-optional-chaining-chain-evaluation">
         <h1>Runtime Semantics: ChainEvaluation</h1>
         <p>With parameters _baseValue_ and _baseReference_.</p>
-        <emu-grammar>OptionalChain : OptionalChainingPunctuator `[` Expression `]`</emu-grammar>
+        <emu-grammar>OptionalChain : `?.` `[` Expression `]`</emu-grammar>
         <emu-alg>
           1. If the code matched by this production is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
           1. Return ? EvaluateDynamicPropertyAccess(_baseValue_, |Expression|, _strict_).
         </emu-alg>
-        <emu-grammar>OptionalChain : OptionalChainingPunctuator IdentifierName</emu-grammar>
+        <emu-grammar>OptionalChain : `?.` IdentifierName</emu-grammar>
         <emu-alg>
           1. If the code matched by this production is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
           1. Return ? EvaluateStaticPropertyAccess(_baseValue_, |IdentifierName|, _strict_).
         </emu-alg>
-        <emu-grammar>OptionalChain : OptionalChainingPunctuator Arguments</emu-grammar>
+        <emu-grammar>OptionalChain : `?.` Arguments</emu-grammar>
         <emu-alg>
           1. Let _thisChain_ be this production.
           1. Let _tailCall_ be IsInTailPosition(_thisChain_).
@@ -659,8 +658,8 @@ ins .hljs.hljs {
         </emu-alg>
         <emu-grammar>
           OptionalChain :
-            OptionalChainingPunctuator `[` Expression `]`
-            OptionalChainingPunctuator IdentifierName
+            `?.` `[` Expression `]`
+            `?.` IdentifierName
             OptionalChain `[` Expression `]`
             OptionalChain `.` IdentifierName
         </emu-grammar>
@@ -669,7 +668,7 @@ ins .hljs.hljs {
         </emu-alg>
         <emu-grammar>
           OptionalChain :
-            OptionalChainingPunctuator Arguments
+            `?.` Arguments
             OptionalChain Arguments
         </emu-grammar>
         <emu-alg>
