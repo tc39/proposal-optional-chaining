@@ -306,6 +306,7 @@ No. Optional Chaining just checks whether some value is undefined or null. It do
     undeclared_var?.b    // ReferenceError: undeclared_var is not defined
     arguments?.callee    // TypeError: 'callee' may not be accessed in strict mode
     arguments.callee?.() // TypeError: 'callee' may not be accessed in strict mode
+    true?.()             // TypeError: true is not a function
 })()
 ```
 
