@@ -209,7 +209,7 @@ There has been various interesting ideas for applying the idea of “optional”
 <dl>
 
 
-<dt>obj?.[expr]  and  func?.(arg)  look ugly. Why not use  obj?[expr]  and  func?(arg)  as does &lt;language X>?
+<dt><code>obj?.[expr]</code> and <code>func?.(arg)</code> look ugly. Why not use <code>obj?[expr]</code> and <code>func?(arg)</code> as does &lt;language X>?</dt>
 
 <dd>
 
@@ -222,7 +222,9 @@ Alternative syntaxes for those two cases each have their own flaws; and deciding
 
 As for &lt;language X>, it has different syntactical constraints than JavaScript because of &lt;some construct not supported by X or working differently in X>.
 
-<dt>Ok, but I <b>really</b> think that <i>&lt;alternative syntax></i> is better
+</dd>
+
+<dt>Ok, but I really think that &lt;alternative syntax> is better.</dt>
   
 <dd>
   
@@ -230,7 +232,9 @@ Various alternative syntaxes has been explored and extensively discussed in the 
 with label “alternative syntax”](https://github.com/tc39/proposal-optional-chaining/issues?utf8=%E2%9C%93&q=label%3A%22alternative+syntax%22), as well as [issues
 with label “alternative syntax and semantics”](https://github.com/tc39/proposal-optional-chaining/issues?utf8=%E2%9C%93&q=label%3A%22alternative+syntax+and+semantics%22) for those that had impact on semantics.
 
-<dt>Why does (null)?.b evaluate to undefined rather than null?
+</dd>
+
+<dt>Why does <code>(null)?.b</code> evaluate to <code>undefined</code> rather than <code>null</code>?</dt>
 
 <dd>
 
@@ -238,7 +242,19 @@ Neither `a.b` nor `a?.b` is intended to preserve arbitrary information on the ba
 
 In particular, the value `null` is considered to have no properties; therefore, `(null)?.b` is undefined.
 
+</dd>
 
+<dt>Why does <code>foo?.()</code> throw when foo is neither nullish nor callable?</dt>
+
+<dd>
+
+Imagine a library which will call a handler function, e.g. `onChange`, just when the user has provided it. If the user provides the number `3` instead of a function, the library will likely want to throw and inform the user of their mistaken usage. This is exactly what the proposed semantics for `onChange?.()` achieve.
+
+Moreover, this ensures that `?.` has a consistent meaning in all cases. Instead of making calls a special case where we check `typeof foo === 'function'`, we simply check `foo == null` across the board.
+
+Finally, remember that optional chaining is [not an error-suppression mechanism](#is-this-error-suppression).
+
+</dd>
 
 <dt>Why do you want long short-circuiting?</dt>
 
@@ -246,9 +262,9 @@ In particular, the value `null` is considered to have no properties; therefore, 
 
 See [Issue #3 (comment)](https://github.com/tc39/proposal-optional-chaining/issues/3#issuecomment-306791812).
 
+</dd>
 
-
-<dt>In a?.b.c, if a.b is null, then a.b.c will evaluate to undefined, right?
+<dt>In <code>a?.b.c</code>, if <code>a.b</code> is <code>null</code>, then <code>a.b.c</code> will evaluate to <code>undefined</code>, right?</dt>
 
 <dd>
 
@@ -258,16 +274,17 @@ The opportunity of short-circuiting happens only at one time, just after having 
 
 In other words, the `?.` operator has an effect only at the very moment it is evaluated. It does not change the semantics of subsequent property accesses, method or function calls.
 
+</dd>
 
-
-<dt>In a deeply nested chain like `a?.b?.c`, why should I write `?.` at each level? Should I not be able to write the operator only once for the whole chain?</dt>
+<dt>In a deeply nested chain like <code>a?.b?.c</code>, why should I write <code>?.</code> at each level? Should I not be able to write the operator only once for the whole chain?</dt>
 
 <dd>
 
 By design, we want the developer to be able to mark each place that they expect to be null/undefined, and only those. Indeed, we believe that an unexpected null/undefined value, being a symptom of a probable bug, should be reported as a TypeError rather than swept under the rug.
 
+</dd>
 
-<dt>... but, in the case of a deeply nested chain, we almost always want to test for null/undefined at each level, no?
+<dt>...but, in the case of a deeply nested chain, we almost always want to test for <code>null</code>/<code>undefined</code> at each level, no?</dt>
 
 <dd>
 
@@ -275,7 +292,9 @@ Deeply nested tree-like structures is not the sole use case of Optional Chaining
 
 See also [Usage statistics on optional chaining in CoffeeScript](https://github.com/tc39/proposal-optional-chaining/issues/17) and compare “Total soak operations” with “Total soak operations chained on top of another soak”.
 
-<dt>The feature looks like an error suppression operator, right?
+</dd>
+
+<dt id="is-this-error-suppression">The feature looks like an error suppression operator, right?</dt>
   
 <dd>
 
@@ -289,6 +308,8 @@ No. Optional Chaining just checks whether some value is undefined or null. It do
     arguments.callee?.() // TypeError: 'callee' may not be accessed in strict mode
 })()
 ```
+
+</dd>
 
 </dl>
 
