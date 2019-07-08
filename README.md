@@ -332,6 +332,15 @@ Per the [TC39 process document](https://tc39.github.io/process-document/), here 
 * [ ] tc39/ecma262 pull request with integrated spec text (stage-4)
 * [ ] Reviewer signoff (stage-4)
 
+## Committee Discussions
+
+* [June 2019](https://github.com/rwaldron/tc39-notes/blob/7a4af23de5c3aa5ac9f68ec6c40e5677a72a56b1/meetings/2019-06/june-5.md#optional-chaining-for-stage-2)
+* [November 2018](https://github.com/rwaldron/tc39-notes/blob/def2ee0c04bc91612576237314a4f3b1fe2edaef/meetings/2018-11/nov-28.md#update-on-optional-chaining)
+* [March 2018](https://github.com/rwaldron/tc39-notes/blob/def2ee0c04bc91612576237314a4f3b1fe2edaef/meetings/2018-03/mar-22.md#optional-chaining-for-stage-2)
+* [January 2018](https://github.com/rwaldron/tc39-notes/blob/def2ee0c04bc91612576237314a4f3b1fe2edaef/meetings/2018-01/jan-24.md#13iiin-optional-chaining-update)
+* [September 2017](https://github.com/rwaldron/tc39-notes/blob/def2ee0c04bc91612576237314a4f3b1fe2edaef/meetings/2017-09/sept-27.md#12iiib-optional-chaining-operator-for-stage-2)
+* [July 2017](https://github.com/rwaldron/tc39-notes/blob/def2ee0c04bc91612576237314a4f3b1fe2edaef/meetings/2017-07/jul-27.md#13iia-optional-chaining-operator)
+
 ## References
 * [TC39 Slide Deck: Null Propagation Operator](https://docs.google.com/presentation/d/11O_wIBBbZgE1bMVRJI8kGnmC6dWCBOwutbN9SWOK0fU/edit?usp=sharing)
 * [es-optional-chaining](https://github.com/claudepache/es-optional-chaining) (@claudepache)
