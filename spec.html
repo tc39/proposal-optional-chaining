@@ -422,22 +422,31 @@ ins .hljs.hljs {
         <emu-alg>
           1. Let _baseReference_ be the result of evaluating |MemberExpression|.
           1. Let _baseValue_ be ? GetValue(_baseReference_).
+          1. <del>Let _propertyNameReference_ be the result of evaluating |Expression|.</del>
+          1. <del>Let _propertyNameValue_ be ? GetValue(_propertyNameReference_).</del>
+          1. <del>Let _bv_ be ? RequireObjectCoercible(_baseValue_).</del>
+          1. <del>Let _propertyKey_ be ? ToPropertyKey(_propertyNameValue_).</del>
           1. If the code matched by this |MemberExpression| is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
-          1. Return ? EvaluateDynamicPropertyAccess(_baseValue_, |Expression|, _strict_).
+          1. <del>Return a value of type Reference whose base value component is _bv_, whose referenced name component is _propertyKey_, and whose strict reference flag is _strict_.</del>
+          1. <ins>Return ? EvaluateDynamicPropertyAccess(_baseValue_, |Expression|, _strict_).</ins>
         </emu-alg>
         <emu-grammar>MemberExpression : MemberExpression `.` IdentifierName</emu-grammar>
         <emu-alg>
           1. Let _baseReference_ be the result of evaluating |MemberExpression|.
           1. Let _baseValue_ be ? GetValue(_baseReference_).
+          1. <del>Let _bv_ be ? RequireObjectCoercible(_baseValue_).</del>
+          1. <del>Let _propertyNameString_ be StringValue of |IdentifierName|.</del>
           1. If the code matched by this |MemberExpression| is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
-          1. Return ? EvaluateStaticPropertyAccess(_baseValue_, |IdentifierName|, _strict_);
+          1. <del>1. Return a value of type Reference whose base value component is _bv_, whose referenced name component is _propertyNameString_, and whose strict reference flag is _strict_.</del>
+          1. <ins>Return ? EvaluateStaticPropertyAccess(_baseValue_, |IdentifierName|, _strict_);</ins>
         </emu-alg>
         <emu-grammar>CallExpression : CallExpression `[` Expression `]`</emu-grammar>
+        <p><del>Is evaluated in exactly the same manner as <emu-grammar>MemberExpression : MemberExpression `[` Expression `]`</emu-grammar> except that the contained |CallExpression| is evaluated in step 1.</del></p>
         <emu-alg>
-          1. Let _baseReference_ be the result of evaluating |CallExpression|.
-          1. Let _baseValue_ be ? GetValue(_baseReference_).
-          1. If the code matched by this |CallExpression| is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
-          1. Return ? EvaluateDynamicPropertyAccess(_baseValue_, |Expression|, _strict_).
+          1. <ins>Let _baseReference_ be the result of evaluating |CallExpression|.</ins>
+          1. <ins>Let _baseValue_ be ? GetValue(_baseReference_).</ins>
+          1. <ins>If the code matched by this |CallExpression| is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.</ins>
+          1. <ins>Return ? EvaluateDynamicPropertyAccess(_baseValue_, |Expression|, _strict_).</ins>
         </emu-alg>
 
         <emu-grammar>CallExpression : CallExpression `.` IdentifierName</emu-grammar>
@@ -450,30 +459,24 @@ ins .hljs.hljs {
       </emu-clause>
 
       <emu-clause id="sec-evaluate-dynamic-property-access" aoid="EvaluateDynamicPropertyAccess">
-        <h1>Runtime Semantics: EvaluateDynamicPropertyAccess(_baseValue_, _expression_, _strict_ )</h1>
-        <p>The abstract operation EvaluateDynamicPropertyAccess takes as arguments a value _baseValue_, a Parse Node _expression_, and a Boolean argument _strict_. It performs the following steps:</p>
+        <h1><ins>Runtime Semantics: EvaluateDynamicPropertyAccess(_baseValue_, _expression_, _strict_ )</ins></h1>
+        <p><ins>The abstract operation EvaluateDynamicPropertyAccess takes as arguments a value _baseValue_, a Parse Node _expression_, and a Boolean argument _strict_. It performs the following steps:</ins></p>
         <emu-alg>
-          1. Let _propertyNameReference_ be the result of evaluating _expression_.
-          1. Let _propertyNameValue_ be ? GetValue(_propertyNameReference_).
-          1. Let _bv_ be ? RequireObjectCoercible(_baseValue_).
-          1. Let _propertyKey_ be ? ToPropertyKey(_propertyNameValue_).
-          1. Return a value of type Reference whose base value component is _bv_, whose referenced name component is _propertyKey_, and whose strict reference flag is _strict_.
+          1. <ins>Let _propertyNameReference_ be the result of evaluating _expression_.</ins>
+          1. <ins>Let _propertyNameValue_ be ? GetValue(_propertyNameReference_).</ins>
+          1. <ins>Let _bv_ be ? RequireObjectCoercible(_baseValue_).</ins>
+          1. <ins>Let _propertyKey_ be ? ToPropertyKey(_propertyNameValue_).</ins>
+          1. <ins>Return a value of type Reference whose base value component is _bv_, whose referenced name component is _propertyKey_, and whose strict reference flag is _strict_.</ins>
       </emu-clause>
       <emu-clause id="sec-evaluate-static-property-access" aoid="EvaluateStaticPropertyAccess">
-        <h1>Runtime Semantics: EvaluateStaticPropertyAccess(_baseValue_, _identifierName_, _strict_ )</h1>
-        <p>The abstract operation EvaluateStaticPropertyAccess takes as arguments a value _baseValue_, a Parse Node _identifierName_, and a Boolean argument _strict_. It performs the following steps:</p>
+        <h1><ins>Runtime Semantics: EvaluateStaticPropertyAccess(_baseValue_, _identifierName_, _strict_ )</ins></h1>
+        <p><ins>The abstract operation EvaluateStaticPropertyAccess takes as arguments a value _baseValue_, a Parse Node _identifierName_, and a Boolean argument _strict_. It performs the following steps:</ins></p>
         <emu-alg>
-          1. Let _bv_ be ? RequireObjectCoercible(_baseValue_).
-          1. Let _propertyNameString_ be StringValue of _identifierName_.
-          1. Return a value of type Reference whose base value component is _bv_, whose referenced name component is _propertyNameString_, and whose strict reference flag is _strict_.
+          1. <ins>Let _bv_ be ? RequireObjectCoercible(_baseValue_).</ins>
+          1. <ins>Let _propertyNameString_ be StringValue of _identifierName_.</ins>
+          1. <ins>Return a value of type Reference whose base value component is _bv_, whose referenced name component is _propertyNameString_, and whose strict reference flag is _strict_.</ins>
       </emu-clause>
 
-    </emu-clause>
-
-    <emu-clause id="sec-new-operator">
-      <h1>The `new` Operator (<a href="https://tc39.github.io/ecma262/#sec-new-operator">12.3.3</a>)</h1>
-
-      <p><i>(not modified)</i></p>
     </emu-clause>
 
     <emu-clause id="sec-function-calls">
@@ -488,7 +491,8 @@ ins .hljs.hljs {
           1. Let _arguments_ be the |Arguments| of _expr_.
           1. Let _ref_ be the result of evaluating _memberExpr_.
           1. Let _func_ be ? GetValue(_ref_).
-          1. If Type(_ref_) is Reference, IsPropertyReference(_ref_) is *false*, and GetReferencedName(_ref_) is `"eval"`, then
+          1. <del>If Type(_ref_) is Reference and IsPropertyReference(_ref_) is *false* and GetReferencedName(_ref_) is `"eval"`, then</del>
+          1. <ins>If Type(_ref_) is Reference, IsPropertyReference(_ref_) is *false*, and GetReferencedName(_ref_) is `"eval"`, then</ins>
             1. If SameValue(_func_, %eval%) is *true*, then
               1. Let _argList_ be ? ArgumentListEvaluation of _arguments_.
               1. If _argList_ has no elements, return *undefined*.
@@ -511,48 +515,7 @@ ins .hljs.hljs {
           1. Return ? EvaluateCall(_func_, _ref_, |Arguments|, _tailCall_).
         </emu-alg>
       </emu-clause>
-
-      <emu-clause id="sec-evaluatecall" aoid="EvaluateCall" oldids="sec-evaluatedirectcall">
-        <h1>Runtime Semantics: EvaluateCall ( _func_, _ref_, _arguments_, _tailPosition_ )</h1>
-        <p>The abstract operation EvaluateCall takes as arguments a value _func_, a value _ref_, a Parse Node _arguments_, and a Boolean argument _tailPosition_. It performs the following steps:</p>
-        <emu-alg>
-          1. If Type(_ref_) is Reference, then
-            1. If IsPropertyReference(_ref_) is *true*, then
-              1. Let _thisValue_ be GetThisValue(_ref_).
-            1. Else the base of _ref_ is an Environment Record,
-              1. Let _refEnv_ be GetBase(_ref_).
-              1. Let _thisValue_ be _refEnv_.WithBaseObject().
-          1. Else Type(_ref_) is not Reference,
-            1. Let _thisValue_ be *undefined*.
-          1. Let _argList_ be ArgumentListEvaluation of _arguments_.
-          1. ReturnIfAbrupt(_argList_).
-          1. If Type(_func_) is not Object, throw a *TypeError* exception.
-          1. If IsCallable(_func_) is *false*, throw a *TypeError* exception.
-          1. If _tailPosition_ is *true*, perform PrepareForTailCall().
-          1. Let _result_ be Call(_func_, _thisValue_, _argList_).
-          1. Assert: If _tailPosition_ is *true*, the above call will not return here, but instead evaluation will continue as if the following return has already occurred.
-          1. Assert: If _result_ is not an abrupt completion, then Type(_result_) is an ECMAScript language type.
-          1. Return _result_.
-        </emu-alg>
-      </emu-clause>
     </emu-clause>
-
-    <emu-clause id="sec-super-keyword">
-      <h1>The `super` Keyword (<a href="https://tc39.github.io/ecma262/#sec-super-keyword">12.3.5</a>)</h1>
-
-      <p><i>(not modified)</i></p>
-    </emu-clause>
-
-    <emu-clause id="sec-argument-lists">
-      <h1>Argument Lists (<a href="https://tc39.github.io/ecma262/#sec-argument-lists">12.3.6</a>)</h1>
-
-      <p><i>(not modified)</i></p>
-    </emu-clause>
-
-    <emu-clause id="sec-tagged-templates">
-      <h1>Tagged Templates (<a href="https://tc39.github.io/ecma262/#sec-tagged-templates">12.3.7</a>)</h1>
-      <p><i>(not modified)</i></p>
-   </emu-clause>
 
     <ins class="block">
     <emu-clause id="sec-optional-chains">
@@ -623,13 +586,6 @@ ins .hljs.hljs {
       </emu-clause>
     </emu-clause>
     </ins>
-
-    <emu-clause id="sec-meta-properties">
-      <h1>Meta Properties (<a href="https://tc39.github.io/ecma262/#sec-meta-properties">12.3.8</a>)</h1>
-
-      <p><i>(not modified)</i></p>
-    </emu-clause>
-  </emu-clause>
 <!--
 </emu-clause>
 -->
@@ -645,7 +601,6 @@ ins .hljs.hljs {
       <p>With parameter _call_.</p>
       <emu-clause id="sec-expression-rules">
         <h1>Expression Rules</h1>
-        <p><i>The following cases are added:</i></p>
         <ins class="block">
         <emu-grammar>
           OptionalExpression :
