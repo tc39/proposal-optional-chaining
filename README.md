@@ -87,7 +87,7 @@ func?.(...args) // optional function or method call
 ### Base case
 If the operand at the left-hand side of the `?.` operator evaluates to undefined or null, the expression evaluates to undefined. Otherwise the targeted property access, method or function call is triggered normally.
 
-Here are basic examples, each one followed by its desugaring. (The desugaring is not exact in the sense that the LHS should be evaluated only once.)
+Here are basic examples, each one followed by its desugaring. (The desugaring is not exact in the sense that the LHS should be evaluated only once and that `document.all` should behave as an object.)
 ```js
 a?.b                          // undefined if `a` is null/undefined, `a.b` otherwise.
 a == null ? undefined : a.b
