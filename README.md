@@ -189,7 +189,7 @@ The following is not supported, although it has some use cases; see [Issue #18](
 The following are not supported, as it does not make much sense, at least in practice; see [Issue #4 (comment)](https://github.com/tc39/proposal-optional-chaining/issues/4#issuecomment-373446728):
 
 * optional super: `super?.()`, `super?.foo`
-* anything that resemble to property access or function call, but is not: `new?.target`, `import?.('foo')`, etc.
+* anything that resembles to property access or function call, but is not: `new?.target`, `import?.('foo')`, etc.
 
 All the above cases will be forbidden by the grammar or by static semantics so that support might be added later.
 
