@@ -2,7 +2,7 @@
 
 ## Status
 Current Stage:
-* Stage 2
+* Stage 3
 
 ## Authors
 * Claude Pache (@claudepache)
@@ -332,7 +332,7 @@ Per the [TC39 process document](https://tc39.github.io/process-document/), here 
 * [x] High-level API (stage-1)
 * [x] [Initial spec text](https://tc39.github.io/proposal-optional-chaining/) (stage-2)
 * [x] [Babel plugin](https://github.com/babel/babel/pull/5813) (stage-2)
-* [ ] Finalize and reviewer signoff for spec text (stage-3)
+* [x] Finalize and reviewer signoff for spec text (stage-3)
 * [ ] Test262 acceptance tests (stage-4)
 * [ ] tc39/ecma262 pull request with integrated spec text (stage-4)
 * [ ] Reviewer signoff (stage-4)
