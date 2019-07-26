@@ -125,7 +125,7 @@ a == null ? undefined : a.b.c(++x).d
 
 Note that the check for nullity is made on `a` only. If, for example, `a` is not null, but `a.b` is null, a TypeError will be thrown when attempting to access the property `"c"` of `a.b`.
 
-This feature is implemented by, e.g., C# and CoffeeScript [TODO: provide precise references].
+This feature is implemented by, e.g., [C#](https://docs.microsoft.com/en-gb/dotnet/csharp/language-reference/operators/member-access-operators#null-conditional-operators--and-) and [CoffeeScript](https://coffeescript.org/#existential-operator).
 
 ### Stacking
 
