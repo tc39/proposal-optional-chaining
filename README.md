@@ -172,6 +172,8 @@ where `true` is the usual result of attempting to delete a non-Reference.
 *   **lack of strong reason** for _removing_ support. The supported semantics of optional deletion is the only one that could be expected (provided that the semantics of the delete operator is correctly understood, of course). It is not like it could in some manner confuse the programmer. In fact, the only real reason is: “We didn’t intend to support it.”
 
 *   **consistency of the delete operator**. It is a fact of life that this operator is very liberal in what it accepts, even pretending to succeed when it is given something that does not make sense (e.g., `delete foo()`). The only error conditions (early or not) are in strict mode, when attempting to delete something that is barred from deletion (nonconfigurable property, variable, ...). Supporting optional deletion fits well in that model, while forbidding it does not.
+
+*  **existence of use cases**. Although they are not common, they do exist in practice ([example from Babel](https://github.com/babel/babel/blob/28ae47a174f67a8ae6f4527e0a66e88896814170/packages/babel-helper-builder-react-jsx/src/index.js#L66-L69)).
 </details>
 
 ## Not supported
