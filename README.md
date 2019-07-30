@@ -33,8 +33,8 @@ var fooValue = myForm.querySelector('input[name=foo]')?.value
 When some other value than `undefined` is desired for the missing case, this can usually be handled with the [Nullish coalescing operator](//github.com/tc39/proposal-nullish-coalescing):
 
 ```javascript
-// falls back to a default value when response.setting is missing or nullish
-// (response.settings == null) or when respsonse.setting.animationDuration is missing
+// falls back to a default value when response.settings is missing or nullish
+// (response.settings == null) or when response.settings.animationDuration is missing
 // or nullish (response.settings.animationDuration == null)
 const animationDuration = response.settings?.animationDuration ?? 300;
 
