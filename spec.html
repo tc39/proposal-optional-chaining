@@ -43,7 +43,7 @@ ins .hljs.hljs {
 
   <p>The following features may not be evident at a cursory read:</p>
   <ul>
-    <li>Optional chaining is forbidden in write contexts such as `a?.b = c`. This is handled by defining properly the IsValidSimpleAssignmentTarget static semantics rule (<emu-xref href="#sec-static-semantics-static-semantics-isvalidsimpleassignmenttarget"></emu-xref>).</li>
+    <li>Optional chaining is forbidden in write contexts such as `a?.b = c`. This is handled by defining properly the IsSimpleAssignmentTarget static semantics rule (<emu-xref href="#sec-static-semantics-static-semantics-issimpleassignmenttarget"></emu-xref>).</li>
     <li>Optional deletion as in: `delete a ?.b` is supported. There is no change needed in Section <emu-xref href="#sec-delete-operator">The delete Operator</emu-xref>.</li>
   </ul>
 </emu-clause>
@@ -338,9 +338,9 @@ ins .hljs.hljs {
         </emu-alg>
       </emu-clause>
 
-      <emu-clause id="sec-static-semantics-static-semantics-isvalidsimpleassignmenttarget">
-        <h1>Static Semantics: IsValidSimpleAssignmentTarget</h1>
-        <emu-see-also-para op="IsValidSimpleAssignmentTarget"></emu-see-also-para>
+      <emu-clause oldids="sec-binary-logical-operators-static-semantics-isvalidsimpleassignmenttarget,sec-semantics-static-semantics-assignmenttargettype" id="sec-binary-logical-operators-static-semantics-issimpleassignmenttarget">
+        <h1>Static Semantics: IsSimpleAssignmentTarget</h1>
+        <emu-see-also-para op="IsSimpleAssignmentTarget"></emu-see-also-para>
         <emu-grammar>
           CallExpression :
             CallExpression `[` Expression `]`
