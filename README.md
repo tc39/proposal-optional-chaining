@@ -13,7 +13,7 @@ Current Stage:
 When looking for a property value that's deep in a tree-like structure, one often has to check whether intermediate nodes exist:
 
 ```javascript
-var street = user.address && user.address.street;
+var street = user && user.address && user.address.street;
 ```
 
 Also, many API return either an object or null/undefined, and one may want to extract a property from the result only when it is not null:
