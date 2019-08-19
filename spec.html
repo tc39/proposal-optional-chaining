@@ -150,9 +150,12 @@ ins .hljs.hljs {
 
       <ins class="block">
       OptionalExpression[Yield, Await] :
-        MemberExpression[?Yield, ?Await] OptionalChain[?Yield, ?Await]
-        CallExpression[?Yield, ?Await] OptionalChain[?Yield, ?Await]
-        OptionalExpression[?Yield, ?Await] OptionalChain[?Yield, ?Await]
+        OptionalLeftHandSideExpression[?Yield, ?Await] OptionalChain[?Yield, ?Await]
+
+      OptionalLeftHandSideExpression[Yield, Await] :
+        MemberExpression[?Yield, ?Await]
+        CallExpression[?Yield, ?Await]
+        OptionalExpression[?Yield, ?Await]
 
       OptionalChain[Yield, Await] :
         `?.` `[` Expression[+In, ?Yield, ?Await] `]`
@@ -525,12 +528,10 @@ ins .hljs.hljs {
         <h1>Runtime Semantics: Evaluation</h1>
         <emu-grammar>
           OptionalExpression :
-            MemberExpression OptionalChain
-            CallExpression OptionalChain
-            OptionalExpression OptionalChain
+            OptionalLeftHandSideExpression OptionalChain
         </emu-grammar>
         <emu-alg>
-          1. Let _baseExpression_ be the first child of this production (i.e., this |MemberExpression|, |CallExpression|, or |OptionalExpression|).
+          1. Let _baseExpression_ be OptionalLeftHandSideExpression.
           1. Let _baseReference_ be ? _baseExpression_.Evaluation().
           1. Let _baseValue_ be ? GetValue(_baseReference_).
           1. If _baseValue_ is *undefined* or *null*, then
