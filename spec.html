@@ -438,7 +438,7 @@ ins .hljs.hljs {
           1. <del>Let _propertyNameString_ be StringValue of |IdentifierName|.</del>
           1. If the code matched by this |MemberExpression| is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
           1. <del>1. Return a value of type Reference whose base value component is _bv_, whose referenced name component is _propertyNameString_, and whose strict reference flag is _strict_.</del>
-          1. <ins>Return ? EvaluateStaticPropertyAccess(_baseValue_, |IdentifierName|, _strict_);</ins>
+          1. <ins>Return ? EvaluateStaticPropertyAccess(_baseValue_, |IdentifierName|, _strict_).</ins>
         </emu-alg>
         <emu-grammar>CallExpression : CallExpression `[` Expression `]`</emu-grammar>
         <p><del>Is evaluated in exactly the same manner as <emu-grammar>MemberExpression : MemberExpression `[` Expression `]`</emu-grammar> except that the contained |CallExpression| is evaluated in step 1.</del></p>
@@ -454,7 +454,7 @@ ins .hljs.hljs {
           1. Let _baseReference_ be the result of evaluating |CallExpression|.
           1. Let _baseValue_ be ? GetValue(_baseReference_).
           1. If the code matched by this |CallExpression| is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
-          1. Return ? EvaluateStaticPropertyAccess(_baseValue_, |IdentifierName|, _strict_);
+          1. Return ? EvaluateStaticPropertyAccess(_baseValue_, |IdentifierName|, _strict_).
         </emu-alg>
       </emu-clause>
 
