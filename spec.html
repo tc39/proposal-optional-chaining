@@ -38,7 +38,6 @@ ins .hljs.hljs {
   <p>List of significant editorial modifications:</p>
   <ul>
     <li><a href="#sec-property-accessors">Property Accessors</a>: Factoring part of the property access operations in the new EvaluateDynamicPropertyAccess and EvaluateStaticPropertyAccess abstract operations.</li>
-    <li>In new content, adoption of calling convention for directed operations of PR <a href="https://github.com/tc39/ecma262/pull/955">tc39/ecma262##955</a>.</li>
   </ul>
 
   <p>The following features may not be evident at a cursory read:</p>
@@ -438,7 +437,7 @@ ins .hljs.hljs {
           1. <del>Let _propertyNameString_ be StringValue of |IdentifierName|.</del>
           1. If the code matched by this |MemberExpression| is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
           1. <del>1. Return a value of type Reference whose base value component is _bv_, whose referenced name component is _propertyNameString_, and whose strict reference flag is _strict_.</del>
-          1. <ins>Return ? EvaluateStaticPropertyAccess(_baseValue_, |IdentifierName|, _strict_);</ins>
+          1. <ins>Return ? EvaluateStaticPropertyAccess(_baseValue_, |IdentifierName|, _strict_).</ins>
         </emu-alg>
         <emu-grammar>CallExpression : CallExpression `[` Expression `]`</emu-grammar>
         <p><del>Is evaluated in exactly the same manner as <emu-grammar>MemberExpression : MemberExpression `[` Expression `]`</emu-grammar> except that the contained |CallExpression| is evaluated in step 1.</del></p>
@@ -454,7 +453,7 @@ ins .hljs.hljs {
           1. Let _baseReference_ be the result of evaluating |CallExpression|.
           1. Let _baseValue_ be ? GetValue(_baseReference_).
           1. If the code matched by this |CallExpression| is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
-          1. Return ? EvaluateStaticPropertyAccess(_baseValue_, |IdentifierName|, _strict_);
+          1. Return ? EvaluateStaticPropertyAccess(_baseValue_, |IdentifierName|, _strict_).
         </emu-alg>
       </emu-clause>
 
@@ -531,12 +530,12 @@ ins .hljs.hljs {
         </emu-grammar>
         <emu-alg>
           1. Let _baseExpression_ be the first child of this |OptionalExpression| (i.e., |MemberExpression|, |CallExpression|, or |OptionalExpression|).
-          1. Let _baseReference_ be ? _baseExpression_.Evaluation().
+          1. Let _baseReference_ be the result of evaluating _baseExpression_.
           1. Let _baseValue_ be ? GetValue(_baseReference_).
           1. If _baseValue_ is *undefined* or *null*, then
             1. Return *undefined*.
           1. Let _optionalChain_ be |OptionalChain|.
-          1. Return ? _optionalChain_.ChainEvaluation(_baseValue_, _baseReference_).
+          1. Return the result of performing ChainEvaluation of _optionalChain_ with arguments _baseValue_ and _baseReference_.
         </emu-alg>
       </emu-clause>
       <emu-clause id="sec-optional-chaining-chain-evaluation">
@@ -561,7 +560,7 @@ ins .hljs.hljs {
         <emu-grammar>OptionalChain : OptionalChain `[` Expression `]`</emu-grammar>
         <emu-alg>
           1. Let _optionalChain_ be |OptionalChain|.
-          1. Let _newReference_ be ? _optionalChain_.ChainEvaluation(_baseValue_, _baseReference_).
+          1. Let _newReference_ be ? ChainEvaluation of _optionalChain_ with arguments _baseValue_ and _baseReference_.
           1. Let _newValue_ be ? GetValue(_newReference_).
           1. If the code matched by this |OptionalChain| is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
           1. Return ? EvaluateDynamicPropertyAccess(_newValue_, |Expression|, _strict_).
@@ -569,7 +568,7 @@ ins .hljs.hljs {
         <emu-grammar>OptionalChain : OptionalChain `.` IdentifierName</emu-grammar>
         <emu-alg>
           1. Let _optionalChain_ be |OptionalChain|.
-          1. Let _newReference_ be ? _optionalChain_.ChainEvaluation(_baseValue_, _baseReference_).
+          1. Let _newReference_ be ? ChainEvaluation of _optionalChain_ with arguments _baseValue_ and _baseReference_.
           1. Let _newValue_ be ? GetValue(_newReference_).
           1. If the code matched by this |OptionalChain| is strict mode code, let _strict_ be *true*, else let _strict_ be *false*.
           1. Return ? EvaluateStaticPropertyAccess(_newValue_, |IdentifierName|, _strict_).
@@ -577,7 +576,7 @@ ins .hljs.hljs {
         <emu-grammar>OptionalChain : OptionalChain Arguments</emu-grammar>
         <emu-alg>
           1. Let _optionalChain_ be |OptionalChain|.
-          1. Let _newReference_ be ? _optionalChain_.ChainEvaluation(_baseValue_, _baseReference_).
+          1. Let _newReference_ be ? ChainEvaluation of _optionalChain_ with arguments _baseValue_ and _baseReference_.
           1. Let _newValue_ be ? GetValue(_newReference_).
           1. Let _thisChain_ be this |OptionalChain|.
           1. Let _tailCall_ be IsInTailPosition(_thisChain_).
