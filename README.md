@@ -2,7 +2,7 @@
 
 ## Status
 Current Stage:
-* Stage 3
+* Stage 4
 
 ## Authors
 
@@ -234,9 +234,9 @@ As for &lt;language X>, it has different syntactical constraints than JavaScript
 </dd>
 
 <dt>Ok, but I really think that &lt;alternative syntax> is better.</dt>
-  
+
 <dd>
-  
+
 Various alternative syntaxes has been explored and extensively discussed in the past. None of them gained consensus. Search for [issues
 with label “alternative syntax”](https://github.com/tc39/proposal-optional-chaining/issues?utf8=%E2%9C%93&q=label%3A%22alternative+syntax%22), as well as [issues
 with label “alternative syntax and semantics”](https://github.com/tc39/proposal-optional-chaining/issues?utf8=%E2%9C%93&q=label%3A%22alternative+syntax+and+semantics%22) for those that had impact on semantics.
@@ -304,7 +304,7 @@ See also [Usage statistics on optional chaining in CoffeeScript](https://github.
 </dd>
 
 <dt id="is-this-error-suppression">The feature looks like an error suppression operator, right?</dt>
-  
+
 <dd>
 
 No. Optional Chaining just checks whether some value is undefined or null. It does not catch or suppress errors that are thrown by evaluating the surrounding code. For example:
@@ -325,21 +325,6 @@ No. Optional Chaining just checks whether some value is undefined or null. It do
 
 ## Specification
 See: https://tc39.github.io/proposal-optional-chaining/
-
-
-## TODO
-Per the [TC39 process document](https://tc39.github.io/process-document/), here is a high level list of work that needs to happen across the various proposal stages.
-
-* [x] Identify champion to advance addition (stage-1)
-* [x] Prose outlining the problem or need and general shape of the solution (stage-1)
-* [x] Illustrative examples of usage (stage-1)
-* [x] High-level API (stage-1)
-* [x] [Initial spec text](https://tc39.github.io/proposal-optional-chaining/) (stage-2)
-* [x] [Babel plugin](https://github.com/babel/babel/pull/5813) (stage-2)
-* [x] Finalize and reviewer signoff for spec text (stage-3)
-* [ ] Test262 acceptance tests (stage-4)
-* [x] [tc39/ecma262 pull request with integrated spec text](https://github.com/tc39/ecma262/pull/1646) (stage-4)
-* [ ] Reviewer signoff (stage-4)
 
 ## Committee Discussions
 
