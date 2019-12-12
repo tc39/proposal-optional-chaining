@@ -71,6 +71,7 @@ The following languages have a similar feature, but do not short-circuit the who
 
 The following languages have a similar feature. We haven’t checked whether they have significant differences in semantics with this proposal:
 * Groovy: [Safe navigation operator](http://groovy-lang.org/operators.html#_safe_navigation_operator)
+* Angular: [Safe navigation operator](https://angular.io/guide/template-syntax#safe-navigation-operator)
 
 ## Syntax
 
