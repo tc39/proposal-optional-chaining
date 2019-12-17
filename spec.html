@@ -17,8 +17,8 @@ ins .hljs.hljs {
 <pre class=metadata>
   title: Optional Chaining
   status: proposal
-  stage: 3
-  location: https://claudepache.github.io/es-nil
+  stage: 4
+  location: https://tc39.es/proposal-optional-chaining/
   copyright: false
   contributors: Claude Pache, ECMA International
 </pre>
@@ -29,11 +29,9 @@ ins .hljs.hljs {
 
   <p>For the syntax, we use the `?.` token, with a lookahead at the level of the lexical grammar that allows to discriminate between `a?.b` (optional chaining) and `a?.3:0` (conditional operator, whose meaning cannot be changed due to backward compatibility constraints).</p>
 
-  <p>The definitive syntax is still an open issue at this point.<p>
-
   <p>An <a href="https://claudepache.github.io/es-optional-chaining/">early version of this proposal</a> used a Nil reference to express short-circuiting. This one is based on syntax only.</p>
 
-  <p>Normative additions are marked <ins>like this</ins>. In order to avoid distraction, we don’t mark mere editorial amendments.</p>
+  <p>Normative additions are marked <ins>like this</ins>. In order to avoid distraction, we may omit mere editorial amendments.</p>
 
   <p>List of significant editorial modifications:</p>
   <ul>
