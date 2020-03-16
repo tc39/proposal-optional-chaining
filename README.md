@@ -93,7 +93,7 @@ If the operand at the left-hand side of the `?.` operator evaluates to undefined
 Here are basic examples, each one followed by its desugaring. (The desugaring is not exact in the sense that the LHS should be evaluated only once and that `document.all` should behave as an object.)
 ```js
 a?.b                          // undefined if `a` is null/undefined, `a.b` otherwise.
-a == null ? undefined : a.b
+a == null ? undefined : a.b   // Note a == null is the same as (a === null || a === undefined)
 
 a?.[x]                        // undefined if `a` is null/undefined, `a[x]` otherwise.
 a == null ? undefined : a[x]
