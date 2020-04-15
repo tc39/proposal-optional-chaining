@@ -327,6 +327,11 @@ No. Optional Chaining just checks whether some value is undefined or null. It do
 ## Specification
 See: https://tc39.github.io/proposal-optional-chaining/
 
+## Support
+
+* Engines, see: https://github.com/tc39/proposal-optional-chaining/issues/115
+* Tools, see: https://github.com/tc39/proposal-optional-chaining/issues/44
+
 ## Committee Discussions
 
 * [June 2019](https://github.com/rwaldron/tc39-notes/blob/7a4af23de5c3aa5ac9f68ec6c40e5677a72a56b1/meetings/2019-06/june-5.md#optional-chaining-for-stage-2)
