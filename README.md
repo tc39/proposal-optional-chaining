@@ -1,8 +1,7 @@
 # Optional Chaining for JavaScript
 
 ## Status
-Current Stage:
-* Stage 4
+[ECMAScript proposal](https://github.com/tc39/proposals) at stage 4 of the process.
 
 ## Authors
 
