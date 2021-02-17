@@ -8,7 +8,7 @@
 * Claude Pache ([github](https://github.com/claudepache))
 * Gabriel Isenberg ([github](https://github.com/gisenberg), [twitter](https://twitter.com/the_gisenberg))
 * Daniel Rosenwasser ([github](https://github.com/DanielRosenwasser), [twitter](https://twitter.com/drosenwasser))
-* Dustin Savery ([github](https://github.com/dustinsavery), [twitter](https://twitter.com/dustinsavery))
+* Dustin Savery ([github](https://github.com/dusave), [twitter](https://twitter.com/dustinsavery))
 
 ## Overview and motivation
 When looking for a property value that's deep in a tree-like structure, one often has to check whether intermediate nodes exist:
