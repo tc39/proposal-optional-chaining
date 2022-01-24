@@ -246,10 +246,10 @@ with label “alternative syntax and semantics”](https://github.com/tc39/propo
 <dt>Why does <code>(null)?.b</code> evaluate to <code>undefined</code> rather than <code>null</code>?</dt>
 
 <dd>
+  
+In such a situation, there are various arguments for one way (evaluate to <code>null</code>) or the other (evaluate to <code>undefined</code>). See Issues [#69](https://github.com/tc39/proposal-optional-chaining/issues/69) and [#65](https://github.com/tc39/proposal-optional-chaining/issues/65) for discussion.
 
-Neither `a.b` nor `a?.b` is intended to preserve arbitrary information on the base object `a`, but only to give information about the property `"b"` of that object. If a property `"b"` is absent from `a`, this is reflected by `a.b === undefined` and `a?.b === undefined`.
-
-In particular, the value `null` is considered to have no properties; therefore, `(null)?.b` is undefined.
+Since there is probably no answer that is better in all cases, we have kept the semantics (always evaluate to <code>undefined</code>) which is the one that is [more precedented in existing libraries](https://github.com/tc39/proposal-optional-chaining/pull/73#issuecomment-434565048) and [more expected by developers](https://github.com/tc39/proposal-optional-chaining/issues/65#issuecomment-400761197).
 
 </dd>
 
